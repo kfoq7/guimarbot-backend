@@ -1,0 +1,53 @@
+---
+const links = [
+  {
+    to: '#',
+    name: 'Home'
+  },
+  {
+    to: '#courses',
+    name: 'Cursos'
+  },
+  {
+    to: '#foros',
+    name: 'Foros'
+  }
+]
+---
+
+<header class="fixed z-[9999] w-full overflow-visible py-6 backdrop-blur-sm">
+  <div
+    class="mx-auto grid max-w-screen-2xl grid-cols-[auto_1fr] items-center justify-center gap-x-10 md:flex md:justify-normal"
+  >
+    <div class="flex justify-start md:flex-grow md:basis-0">
+      <a href="#" class="ml-6"> Logo </a>
+    </div>
+
+    <nav
+      class="col-span-full row-[2/3] grid grid-rows-[0fr] overflow-x-auto md:flex md:justify-center"
+    >
+      <ul
+        class="flex flex-col items-center gap-x-2 overflow-x-hidden overflow-y-hidden md:flex-row"
+      >
+        {
+          links.map(({ to, name }) => (
+            <li class="flex w-full justify-center first:mt-5 md:block md:w-auto md:first:mt-0">
+              <a href={to}>{name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div
+      class="mr-4 flex items-center justify-end gap-4 md:flex-grow md:basis-0"
+    >
+      <a
+        href="/login"
+        class="border-gray-400-500 flex items-center justify-center rounded-md border bg-blue-500 px-4 py-2.5 text-lg leading-none text-white shadow-md transition-transform duration-300 hover:scale-105"
+      >
+        Aprende ahora
+      </a>
+    </div>
+  </div>
+</header>

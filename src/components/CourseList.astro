@@ -1,0 +1,39 @@
+---
+import { Image } from 'astro:assets'
+import { transformTitleParam } from '@/utils'
+import type { Course } from '@/types/Course'
+
+const response = await fetch('http://localhost:8080/api/courses')
+const data = await response.json()
+const courseList = data as Course[]
+---
+
+<ul class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+  {
+    courseList.map(({ title, price }) => (
+      <li>
+        <a
+          href={`/course/${transformTitleParam(title)}`}
+          class="flex cursor-pointer flex-col items-center justify-center rounded-md border border-gray-100 drop-shadow-md"
+        >
+          <div class="relative">
+            <Image
+              src="/img/courses/ultimas-novedades-javascript.webp"
+              class="aspect-video w-full rounded-t-md"
+              alt="preview-course"
+              width="400"
+              height="400"
+            />
+          </div>
+
+          <div class="w-full p-2.5">
+            <h1 class="text-lg font-bold">{title}</h1>
+            <p class="text-gray-50/20">Descripcion del curso</p>
+            <div>Rating</div>
+            <span>{price}</span>
+          </div>
+        </a>
+      </li>
+    ))
+  }
+</ul>
