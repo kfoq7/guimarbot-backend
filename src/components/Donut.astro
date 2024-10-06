@@ -1,8 +1,7 @@
-<div id="canvas"></div>
+<div id="canvas" class="insert-0 absolute"></div>
 
 <style>
   #canvas {
-    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -17,6 +16,18 @@
   var textureLoader,
     currentTextureIndex = 0
   var textures = []
+  var lastImageChange = 0
+  var isChangingTexture = false
+
+  var isDragging = false
+  var previousMousePosition = {
+    x: 0,
+    y: 0
+  }
+  var rotationVelocity = {
+    x: -0.002,
+    y: -0.003
+  }
 
   window.onload = function () {
     init()
@@ -29,6 +40,8 @@
       window.devicePixelRatio ? window.devicePixelRatio : 1
     )
     renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.shadowMap.enabled = true
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap
     renderer.autoClear = false
     renderer.setClearColor(0x000000, 0.0)
     document.getElementById('canvas').appendChild(renderer.domElement)
@@ -43,17 +56,14 @@
     camera.position.z = 500
     scene.add(camera)
 
-    // Crear el cargador de texturas
     textureLoader = new THREE.TextureLoader()
 
-    // Cargar las texturas que quieres mostrar en el centro
-    // Reemplaza estas URLs con las imágenes que desees usar
+    // Cargar las texturas
     const imageUrls = [
-      '/img/guimarbot.webp',
-      './images/2.png',
+      '/img/images.jpg',
+      '/img/guimarbot.png',
       './images/3.jpg'
     ]
-
     imageUrls.forEach(url => {
       textures.push(textureLoader.load(url))
     })
@@ -66,9 +76,9 @@
     scene.add(skelet)
     scene.add(particle)
 
-    // Crear partículas de fondo
+    // Partículas de fondo
     var geometry = new THREE.TetrahedronGeometry(2, 0)
-    var material = new THREE.MeshPhongMaterial({
+    var material = new THREE.MeshLambertMaterial({
       color: 0xffffff,
       flatShading: true
     })
@@ -83,16 +93,19 @@
       particle.add(mesh)
     }
 
-    // Crear el portal (torus)
+    // Portal (torus)
     var torusGeometry = new THREE.TorusGeometry(200, 15, 32, 100)
-    var torusMaterial = new THREE.MeshPhongMaterial({
+    const torusMaterial = new THREE.MeshPhongMaterial({
       color: 0xffffff,
-      flatShading: true
+      emissive: 0x444444,
+      specular: 0x555555,
+      shininess: 100
     })
+
     var torusMesh = new THREE.Mesh(torusGeometry, torusMaterial)
     portal.add(torusMesh)
 
-    // Crear el disco central para las imágenes
+    // Disco central para las imágenes
     var discGeometry = new THREE.CircleGeometry(200, 32)
     var discMaterial = new THREE.MeshBasicMaterial({
       map: textures[0],
@@ -101,10 +114,10 @@
     var disc = new THREE.Mesh(discGeometry, discMaterial)
     portal.add(disc)
 
-    // Crear el esqueleto exterior
-
-    // Configurar las luces
-    var ambientLight = new THREE.AmbientLight(0x999999)
+    // Luces
+    var ambientLight = new THREE.DirectionalLight(0xffffff, 1)
+    ambientLight.position.set(50, 50, 50)
+    ambientLight.castShadow = true
     scene.add(ambientLight)
 
     var lights = []
@@ -127,6 +140,31 @@
     renderer.setSize(window.innerWidth, window.innerHeight)
   }
 
+  function checkPortalRotation() {
+    // Obtener el vector normal del disco (asumiendo que está en el eje Z local del portal)
+    const normalVector = new THREE.Vector3(0, 0, 1)
+    normalVector.applyQuaternion(portal.quaternion)
+
+    // Calcular el producto punto con la dirección de la cámara
+    const dotProduct = normalVector.dot(
+      camera.getWorldDirection(new THREE.Vector3())
+    )
+
+    // Si el disco está "de espaldas" y no estamos en medio de un cambio
+    if (dotProduct < -0.95 && !isChangingTexture) {
+      isChangingTexture = true
+      currentTextureIndex = (currentTextureIndex + 1) % textures.length
+      // Actualizar la textura del disco
+      portal.children[1].material.map = textures[currentTextureIndex]
+      portal.children[1].material.needsUpdate = true
+    }
+
+    // Resetear el flag cuando el disco vuelve a estar de frente
+    else if (dotProduct > 0.95) {
+      isChangingTexture = false
+    }
+  }
+
   function animate(timestamp) {
     requestAnimationFrame(animate)
 
@@ -135,6 +173,8 @@
     portal.rotation.y -= 0.003
     skelet.rotation.x -= 0.001
     skelet.rotation.y += 0.002
+
+    checkPortalRotation()
 
     renderer.clear()
     renderer.render(scene, camera)
