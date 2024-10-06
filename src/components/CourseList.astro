@@ -14,7 +14,7 @@ const courseList = data as Course[]
       <li>
         <a
           href={`/course/${transformTitleParam(title)}`}
-          class="flex cursor-pointer flex-col items-center justify-center rounded-md border border-gray-100 drop-shadow-md"
+          class="flex cursor-pointer flex-col items-center justify-center rounded-md border border-gray-100 drop-shadow-md transition-all"
         >
           <div class="relative">
             <Image
@@ -23,6 +23,7 @@ const courseList = data as Course[]
               alt="preview-course"
               width="400"
               height="400"
+              style={`view-transition-name: course-${transformTitleParam(title)}`}
             />
           </div>
 
