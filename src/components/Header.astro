@@ -15,12 +15,17 @@ const links = [
 ]
 ---
 
-<header class="fixed z-[9999] w-full overflow-visible py-6 backdrop-blur-sm">
+<header
+  class="fixed z-[9999] w-full overflow-visible py-2 shadow-lg"
+  style="background-color: #f6f6f6;"
+>
   <div
     class="mx-auto grid max-w-screen-2xl grid-cols-[auto_1fr] items-center justify-center gap-x-10 md:flex md:justify-normal"
   >
     <div class="flex justify-start md:flex-grow md:basis-0">
-      <a href="#" class="ml-6"> Logo </a>
+      <a href="#" class="ml-6 flex items-center gap-x-1">
+        <img src="/img/guimarbot.webp" alt="Logo" class="size-10" /> Guimarbot
+      </a>
     </div>
 
     <nav
