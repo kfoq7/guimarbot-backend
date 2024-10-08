@@ -18,6 +18,7 @@
   var textures = []
   var lastImageChange = 0
   var isChangingTexture = false
+  var fogParticles = []
 
   var isDragging = false
   var previousMousePosition = {
@@ -43,10 +44,15 @@
     renderer.shadowMap.enabled = true
     renderer.shadowMap.type = THREE.PCFSoftShadowMap
     renderer.autoClear = false
-    renderer.setClearColor(0x000000, 0.0)
+    renderer.setClearColor(0x000022, 1) // Fondo azul oscuro
     document.getElementById('canvas').appendChild(renderer.domElement)
 
     scene = new THREE.Scene()
+
+    // Agregar niebla azul a la escena
+    const fogColor = new THREE.Color(0x0000ff)
+    scene.fog = new THREE.FogExp2(fogColor, 0.002)
+
     camera = new THREE.PerspectiveCamera(
       75,
       window.innerWidth / window.innerHeight,
@@ -56,9 +62,34 @@
     camera.position.z = 500
     scene.add(camera)
 
+    // Crear partículas de niebla
+    const particleCount = 2000
+    const particleGeometry = new THREE.BufferGeometry()
+    const particleMaterial = new THREE.PointsMaterial({
+      color: 0x0088ff,
+      size: 0.5,
+      transparent: true,
+      opacity: 0.5
+    })
+
+    const positions = new Float32Array(particleCount * 3)
+    for (let i = 0; i < particleCount * 3; i += 3) {
+      positions[i] = Math.random() * 1000 - 500
+      positions[i + 1] = Math.random() * 1000 - 500
+      positions[i + 2] = Math.random() * 1000 - 500
+    }
+
+    particleGeometry.setAttribute(
+      'position',
+      new THREE.Float32BufferAttribute(positions, 3)
+    )
+    const fogPointCloud = new THREE.Points(particleGeometry, particleMaterial)
+    scene.add(fogPointCloud)
+    fogParticles.push(fogPointCloud)
+
+    // Tu código original del portal
     textureLoader = new THREE.TextureLoader()
 
-    // Cargar las texturas
     const imageUrls = [
       '/img/images.jpg',
       '/img/guimarbot.png',
@@ -76,7 +107,6 @@
     scene.add(skelet)
     scene.add(particle)
 
-    // Partículas de fondo
     var geometry = new THREE.TetrahedronGeometry(2, 0)
     var material = new THREE.MeshLambertMaterial({
       color: 0xffffff,
@@ -93,7 +123,6 @@
       particle.add(mesh)
     }
 
-    // Portal (torus)
     var torusGeometry = new THREE.TorusGeometry(200, 15, 32, 100)
     const torusMaterial = new THREE.MeshPhongMaterial({
       color: 0xffffff,
@@ -105,7 +134,6 @@
     var torusMesh = new THREE.Mesh(torusGeometry, torusMaterial)
     portal.add(torusMesh)
 
-    // Disco central para las imágenes
     var discGeometry = new THREE.CircleGeometry(200, 32)
     var discMaterial = new THREE.MeshBasicMaterial({
       map: textures[0],
@@ -114,18 +142,18 @@
     var disc = new THREE.Mesh(discGeometry, discMaterial)
     portal.add(disc)
 
-    // Luces
-    var ambientLight = new THREE.DirectionalLight(0xffffff, 1)
+    // Ajustar las luces para el ambiente azul
+    var ambientLight = new THREE.DirectionalLight(0xffffff, 0.5)
     ambientLight.position.set(50, 50, 50)
     ambientLight.castShadow = true
     scene.add(ambientLight)
 
     var lights = []
-    lights[0] = new THREE.DirectionalLight(0xffffff, 1)
+    lights[0] = new THREE.DirectionalLight(0xffffff, 0.8)
     lights[0].position.set(1, 0, 0)
-    lights[1] = new THREE.DirectionalLight(0x11e8bb, 1)
+    lights[1] = new THREE.DirectionalLight(0x0088ff, 1) // Luz azul
     lights[1].position.set(0.75, 1, 0.5)
-    lights[2] = new THREE.DirectionalLight(0x8200c9, 1)
+    lights[2] = new THREE.DirectionalLight(0x000088, 1) // Luz azul oscuro
     lights[2].position.set(-0.75, -1, 0.5)
     scene.add(lights[0])
     scene.add(lights[1])
@@ -134,39 +162,18 @@
     window.addEventListener('resize', onWindowResize, false)
   }
 
-  function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight
-    camera.updateProjectionMatrix()
-    renderer.setSize(window.innerWidth, window.innerHeight)
-  }
-
-  function checkPortalRotation() {
-    // Obtener el vector normal del disco (asumiendo que está en el eje Z local del portal)
-    const normalVector = new THREE.Vector3(0, 0, 1)
-    normalVector.applyQuaternion(portal.quaternion)
-
-    // Calcular el producto punto con la dirección de la cámara
-    const dotProduct = normalVector.dot(
-      camera.getWorldDirection(new THREE.Vector3())
-    )
-
-    // Si el disco está "de espaldas" y no estamos en medio de un cambio
-    if (dotProduct < -0.95 && !isChangingTexture) {
-      isChangingTexture = true
-      currentTextureIndex = (currentTextureIndex + 1) % textures.length
-      // Actualizar la textura del disco
-      portal.children[1].material.map = textures[currentTextureIndex]
-      portal.children[1].material.needsUpdate = true
-    }
-
-    // Resetear el flag cuando el disco vuelve a estar de frente
-    else if (dotProduct > 0.95) {
-      isChangingTexture = false
-    }
-  }
-
   function animate(timestamp) {
     requestAnimationFrame(animate)
+
+    // Animar partículas de niebla
+    fogParticles.forEach(particles => {
+      const positions = particles.geometry.attributes.position.array
+      for (let i = 0; i < positions.length; i += 3) {
+        positions[i + 2] += 0.1
+        if (positions[i + 2] > 500) positions[i + 2] = -500
+      }
+      particles.geometry.attributes.position.needsUpdate = true
+    })
 
     particle.rotation.y -= 0.004
     portal.rotation.x -= 0.002
@@ -178,5 +185,29 @@
 
     renderer.clear()
     renderer.render(scene, camera)
+  }
+
+  // Mantener las funciones existentes
+  function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight
+    camera.updateProjectionMatrix()
+    renderer.setSize(window.innerWidth, window.innerHeight)
+  }
+
+  function checkPortalRotation() {
+    const normalVector = new THREE.Vector3(0, 0, 1)
+    normalVector.applyQuaternion(portal.quaternion)
+    const dotProduct = normalVector.dot(
+      camera.getWorldDirection(new THREE.Vector3())
+    )
+
+    if (dotProduct < -0.95 && !isChangingTexture) {
+      isChangingTexture = true
+      currentTextureIndex = (currentTextureIndex + 1) % textures.length
+      portal.children[1].material.map = textures[currentTextureIndex]
+      portal.children[1].material.needsUpdate = true
+    } else if (dotProduct > 0.95) {
+      isChangingTexture = false
+    }
   }
 </script>

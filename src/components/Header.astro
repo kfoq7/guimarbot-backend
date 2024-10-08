@@ -16,8 +16,8 @@ const links = [
 ---
 
 <header
-  class="fixed z-[9999] w-full overflow-visible py-2 shadow-lg"
-  style="background-color: #f6f6f6;"
+  class="fixed z-[9999] w-full overflow-visible bg-transparent py-2 text-white transition-colors duration-300"
+  id="main-header"
 >
   <div
     class="mx-auto grid max-w-screen-2xl grid-cols-[auto_1fr] items-center justify-center gap-x-10 md:flex md:justify-normal"
@@ -27,7 +27,6 @@ const links = [
         <img src="/img/guimarbot.webp" alt="Logo" class="size-10" />
       </a>
     </div>
-
     <nav
       class="col-span-full row-[2/3] grid grid-rows-[0fr] overflow-x-auto md:flex md:justify-center"
     >
@@ -43,16 +42,51 @@ const links = [
         }
       </ul>
     </nav>
-
     <div
       class="mr-4 flex items-center justify-end gap-4 md:flex-grow md:basis-0"
     >
       <a
         href="/login"
-        class="border-gray-400-500 flex items-center justify-center rounded-md border bg-blue-500 px-4 py-2.5 text-lg leading-none text-white shadow-md transition-transform duration-300 hover:scale-105"
+        class="flex items-center justify-center rounded-md border border-none px-4 py-2.5 text-lg leading-none transition-transform duration-300 hover:scale-105"
       >
         Aprende ahora
       </a>
     </div>
   </div>
 </header>
+
+<script>
+  const header = document.getElementById('main-header')
+  if (!header) throw new Error('Header not found')
+
+  const windowHeight = window.innerHeight
+
+  function updateHeaderBackground() {
+    if (window.scrollY > windowHeight * 0.9) {
+      header.classList.add('bg-gray-100')
+      header.classList.add('text-gray-900')
+      header.classList.remove('bg-transparent')
+      header.classList.remove('text-white')
+      header.classList.add('shadow-xl')
+    } else {
+      header.classList.remove('bg-gray-100')
+      header.classList.remove('text-gray-900')
+      header.classList.add('bg-transparent')
+      header.classList.add('text-white')
+      header.classList.remove('shadow-xl')
+    }
+  }
+
+  let ticking = false
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateHeaderBackground()
+        ticking = false
+      })
+      ticking = true
+    }
+  })
+
+  updateHeaderBackground()
+</script>
