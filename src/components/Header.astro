@@ -36,7 +36,12 @@ const links = [
         {
           links.map(({ to, name }) => (
             <li class="flex w-full justify-center first:mt-5 md:block md:w-auto md:first:mt-0">
-              <a href={to}>{name}</a>
+              <a
+                href={to}
+                class="cursor-pointer bg-gradient-to-r from-white to-white bg-[length:0%_2px] bg-left-bottom bg-no-repeat shadow-2xl transition-all duration-500 ease-out group-hover:bg-[length:100%_2px]"
+              >
+                {name}
+              </a>
             </li>
           ))
         }
