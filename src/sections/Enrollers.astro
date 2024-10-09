@@ -1,0 +1,46 @@
+---
+const plans = [
+  {
+    id: 1,
+    name: 'Basic plan'
+  },
+  {
+    id: 1,
+    name: 'Basic plan'
+  },
+  {
+    id: 1,
+    name: 'Basic plan'
+  }
+]
+---
+
+<section class="mt-20 px-4">
+  <h1 class="text-center text-2xl font-bold md:text-3xl">
+    Elige el plan que mejor se adapte a ti
+  </h1>
+
+  <div class="mt-14 flex items-center justify-center gap-x-5">
+    {
+      plans.map(({ name }) => (
+        <div class="w-96 rounded-md border-2 border-gray-800/80 bg-[#e2e2e2] px-5 py-3 drop-shadow-md">
+          <div class="flex items-center justify-between">
+            <h1 class="text-left text-lg font-semibold text-white md:text-xl">
+              {name}
+            </h1>
+
+            <span class="rounded-full border border-black px-2.5 py-0.5 text-gray-500/80">
+              Mensual
+            </span>
+          </div>
+
+          <p class="mt-4">
+            Para <span>1 estudiante</span>
+          </p>
+
+          <div />
+        </div>
+      ))
+    }
+  </div>
+</section>

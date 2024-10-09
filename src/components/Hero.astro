@@ -1,5 +1,7 @@
-<div class="pt-full px-10 text-white">
-  <h1 class="font-effect-neon text-6xl italic">
+<div
+  class="flex min-h-screen flex-col-reverse items-start px-10 pb-10 text-white"
+>
+  <h1 class="font-effect-neon text-6xl font-bold">
     Conviérte en un gran Desarrollador
   </h1>
   <h1 class="font-effect-neon text-4xl font-normal">
@@ -8,12 +10,13 @@
 
   <div class="mt-3">
     <span class="group">
-      <span
+      <a
         id="exploreButton"
-        class="font-effect-neon bg-gradient-to-r from-white to-white bg-[length:0%_2px] bg-left-bottom bg-no-repeat shadow-2xl transition-all duration-500 ease-out group-hover:bg-[length:100%_2px]"
+        href="/#courses"
+        class="font-effect-neon cursor-pointer bg-gradient-to-r from-white to-white bg-[length:0%_2px] bg-left-bottom bg-no-repeat shadow-2xl transition-all duration-500 ease-out group-hover:bg-[length:100%_2px]"
       >
         Explorar cursos
-      </span>
+      </a>
     </span>
   </div>
 </div>
@@ -23,7 +26,13 @@
     padding-top: 70vh;
   }
   .font-effect-neon {
-    text-shadow: 0 0 0.1em #fff;
+    text-shadow: 0 0 0.1em
+      linear-gradient(
+        90deg,
+        rgba(2, 0, 36, 1) 0%,
+        rgba(9, 121, 76, 1) 33%,
+        rgba(0, 212, 255, 1) 100%
+      );
     color: #fff;
   }
 </style>

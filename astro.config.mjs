@@ -6,5 +6,15 @@ import tailwind from '@astrojs/tailwind'
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
-  integrations: [tailwind()]
+  integrations: [tailwind()],
+  vite: {
+    ssr: {
+      noExternal: ['path-to-regexp']
+    },
+    server: {
+      watch: {
+        usePolling: true
+      }
+    }
+  }
 })
