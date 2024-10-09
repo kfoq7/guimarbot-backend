@@ -1,3 +1,48 @@
-<div>
-  <h1>Basico</h1>
+---
+import type { Plan } from '@/types/Plan'
+
+export interface Props {
+  plan: Plan
+}
+
+const { plan } = Astro.props
+
+const { name, content } = plan
+---
+
+<div
+  class="w-full rounded-md border-2 border-gray-800/80 bg-midnight-navy px-5 py-3 drop-shadow-md md:w-96"
+>
+  <div class="flex items-center justify-between">
+    <h1 class="text-left text-xl font-semibold text-white md:text-2xl">
+      {name}
+    </h1>
+
+    <span
+      class="rounded-full border border-black px-2.5 py-0.5 text-gray-200/80 backdrop-blur-sm"
+    >
+      Mensual
+    </span>
+  </div>
+
+  <p class="mt-4 text-white">
+    Para <span class="font-bold">1 estudiante</span>
+  </p>
+
+  <ul class="my-4 flex flex-col gap-y-3 text-white">
+    {
+      content.map(({ description, active }) => (
+        <ol class:list={['', { 'text-gray-100/30': active }]}>{description}</ol>
+      ))
+    }
+  </ul>
+
+  <div class="mt-4 w-full">
+    <a
+      href="/auth/login"
+      class="block w-full rounded-md border border-blue-600 bg-blue-800 px-3 py-2 text-center text-white transition-all duration-300 hover:scale-105"
+    >
+      Adquirir
+    </a>
+  </div>
 </div>

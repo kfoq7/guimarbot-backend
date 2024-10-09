@@ -1,8 +1,16 @@
 ---
+export interface Props {
+  isHomePage?: boolean
+}
+
 const links = [
   {
     to: '#',
     name: 'Home'
+  },
+  {
+    to: '/comunity',
+    name: 'Comunidad'
   },
   {
     to: '#courses',
@@ -13,11 +21,17 @@ const links = [
     name: 'Foros'
   }
 ]
+
+const { isHomePage } = Astro.props
 ---
 
 <header
-  class="fixed z-[9999] w-full overflow-visible bg-transparent py-2 text-white transition-colors duration-300"
   id="main-header"
+  class:list={[
+    { 'is-home-page text-white': isHomePage },
+    { 'bg-white text-gray-900': !isHomePage },
+    'fixed z-[9999] w-full overflow-visible bg-transparent py-2 transition-colors duration-300'
+  ]}
 >
   <div
     class="mx-auto grid max-w-screen-2xl grid-cols-[auto_1fr] items-center justify-center gap-x-10 md:flex md:justify-normal"
@@ -31,11 +45,11 @@ const links = [
       class="col-span-full row-[2/3] grid grid-rows-[0fr] overflow-x-auto md:flex md:justify-center"
     >
       <ul
-        class="flex flex-col items-center gap-x-8 overflow-x-hidden overflow-y-hidden md:flex-row"
+        class="flex flex-col items-center justify-center gap-x-8 overflow-x-hidden overflow-y-hidden md:flex-row"
       >
         {
           links.map(({ to, name }) => (
-            <li class="flex w-full justify-center first:mt-5 md:block md:w-auto md:first:mt-0">
+            <li class="group flex w-full justify-center first:mt-5 md:block md:w-auto md:first:mt-0">
               <a
                 href={to}
                 class="cursor-pointer bg-gradient-to-r from-white to-white bg-[length:0%_2px] bg-left-bottom bg-no-repeat shadow-2xl transition-all duration-500 ease-out group-hover:bg-[length:100%_2px]"
@@ -64,34 +78,36 @@ const links = [
   const header = document.getElementById('main-header')
   if (!header) throw new Error('Header not found')
 
-  const windowHeight = window.innerHeight
+  if (header.classList.contains('is-home-page')) {
+    const windowHeight = window.innerHeight
 
-  function updateHeaderBackground() {
-    if (window.scrollY > windowHeight * 0.9) {
-      header.classList.add('bg-gray-100')
-      header.classList.add('text-gray-900')
-      header.classList.remove('bg-transparent')
-      header.classList.remove('text-white')
-      header.classList.add('shadow-xl')
-    } else {
-      header.classList.remove('bg-gray-100')
-      header.classList.remove('text-gray-900')
-      header.classList.add('bg-transparent')
-      header.classList.add('text-white')
-      header.classList.remove('shadow-xl')
+    function updateHeaderBackground() {
+      if (window.scrollY > windowHeight * 0.9 && header) {
+        header.classList.add('bg-gray-100')
+        header.classList.add('text-gray-900')
+        header.classList.remove('bg-transparent')
+        header.classList.remove('text-white')
+        header.classList.add('shadow-xl')
+      } else if (header) {
+        header.classList.remove('bg-gray-100')
+        header.classList.remove('text-gray-900')
+        header.classList.add('bg-transparent')
+        header.classList.add('text-white')
+        header.classList.remove('shadow-xl')
+      }
     }
+
+    let ticking = false
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateHeaderBackground()
+          ticking = false
+        })
+        ticking = true
+      }
+    })
+
+    updateHeaderBackground()
   }
-
-  let ticking = false
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        updateHeaderBackground()
-        ticking = false
-      })
-      ticking = true
-    }
-  })
-
-  updateHeaderBackground()
 </script>
