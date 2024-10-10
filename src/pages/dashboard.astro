@@ -1,0 +1,244 @@
+---
+
+---
+
+<div class="bg-muted/40 flex min-h-screen">
+  <!-- Sidebar -->
+  <aside class="bg-muted/60 hidden w-64 flex-col p-4 md:flex">
+    <div class="flex items-center gap-2 pb-4">
+      <span class="text-2xl">🎓</span>
+      <span class="text-lg font-bold">Academi</span>
+    </div>
+    <nav class="flex-1 space-y-2">
+      <a
+        href="#"
+        class="bg-primary text-primary-foreground flex items-center gap-2 rounded-lg px-3 py-2"
+      >
+        <span class="text-sm">📊</span>
+        Dashboard
+      </a>
+      <a
+        href="#"
+        class="hover:bg-muted flex items-center gap-2 rounded-lg px-3 py-2"
+      >
+        <span class="text-sm">📚</span>
+        Courses
+      </a>
+      <a
+        href="#"
+        class="hover:bg-muted flex items-center gap-2 rounded-lg px-3 py-2"
+      >
+        <span class="text-sm">📅</span>
+        Schedule
+      </a>
+      <a
+        href="#"
+        class="hover:bg-muted flex items-center gap-2 rounded-lg px-3 py-2"
+      >
+        <span class="text-sm">💬</span>
+        Messages
+      </a>
+      <a
+        href="#"
+        class="hover:bg-muted flex items-center gap-2 rounded-lg px-3 py-2"
+      >
+        <span class="text-sm">📈</span>
+        Grades
+      </a>
+    </nav>
+    <div class="border-t pt-4">
+      <a
+        href="#"
+        class="hover:bg-muted flex items-center gap-2 rounded-lg px-3 py-2"
+      >
+        <span class="text-sm">⚙️</span>
+        Settings
+      </a>
+      <a
+        href="#"
+        class="hover:bg-muted flex items-center gap-2 rounded-lg px-3 py-2"
+      >
+        <span class="text-sm">👤</span>
+        Profile
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-6">
+    <div class="flex items-center justify-between">
+      <h1 class="text-2xl font-bold">Welcome back, Alex!</h1>
+      <button
+        class="border-input bg-background hover:bg-accent hover:text-accent-foreground inline-flex items-center justify-center rounded-md border p-2"
+      >
+        <span class="text-lg">🔔</span>
+        <span class="sr-only">Notifications</span>
+      </button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="mt-6">
+      <div class="border-b">
+        <div class="flex gap-4">
+          <button
+            class="border-primary text-primary border-b-2 px-4 py-2 font-medium"
+            >Overview</button
+          >
+          <button
+            class="text-muted-foreground hover:text-primary px-4 py-2 font-medium"
+            >Courses</button
+          >
+          <button
+            class="text-muted-foreground hover:text-primary px-4 py-2 font-medium"
+            >Assignments</button
+          >
+        </div>
+      </div>
+
+      <!-- Overview Content -->
+      <div class="space-y-4 py-4">
+        <!-- Stats Cards -->
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <!-- Total Courses Card -->
+          <div class="bg-card rounded-lg border p-4 shadow-sm">
+            <div
+              class="flex flex-row items-center justify-between space-y-0 pb-2"
+            >
+              <p class="text-sm font-medium">Total Courses</p>
+              <span class="text-sm">📚</span>
+            </div>
+            <div>
+              <div class="text-2xl font-bold">4</div>
+              <p class="text-muted-foreground text-xs">
+                2 in progress, 2 completed
+              </p>
+            </div>
+          </div>
+
+          <!-- Average Grade Card -->
+          <div class="bg-card rounded-lg border p-4 shadow-sm">
+            <div
+              class="flex flex-row items-center justify-between space-y-0 pb-2"
+            >
+              <p class="text-sm font-medium">Average Grade</p>
+              <span class="text-sm">📈</span>
+            </div>
+            <div>
+              <div class="text-2xl font-bold">87%</div>
+              <p class="text-muted-foreground text-xs">
+                +2% from last semester
+              </p>
+            </div>
+          </div>
+
+          <!-- Study Time Card -->
+          <div class="bg-card rounded-lg border p-4 shadow-sm">
+            <div
+              class="flex flex-row items-center justify-between space-y-0 pb-2"
+            >
+              <p class="text-sm font-medium">Study Time</p>
+              <span class="text-sm">⏰</span>
+            </div>
+            <div>
+              <div class="text-2xl font-bold">32h</div>
+              <p class="text-muted-foreground text-xs">This week</p>
+            </div>
+          </div>
+
+          <!-- Deadlines Card -->
+          <div class="bg-card rounded-lg border p-4 shadow-sm">
+            <div
+              class="flex flex-row items-center justify-between space-y-0 pb-2"
+            >
+              <p class="text-sm font-medium">Upcoming Deadlines</p>
+              <span class="text-sm">📅</span>
+            </div>
+            <div>
+              <div class="text-2xl font-bold">3</div>
+              <p class="text-muted-foreground text-xs">Within next 7 days</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Course Progress and Upcoming Assignments -->
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+          <!-- Course Progress -->
+          <div class="bg-card col-span-4 rounded-lg border p-4 shadow-sm">
+            <div class="mb-4">
+              <h3 class="font-semibold">Course Progress</h3>
+            </div>
+            <div class="space-y-4">
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <div class="font-medium">
+                    Introduction to Computer Science
+                  </div>
+                  <div class="text-muted-foreground text-sm">75%</div>
+                </div>
+                <div class="bg-muted h-2 rounded-full">
+                  <div class="bg-primary h-full w-[75%] rounded-full"></div>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <div class="font-medium">Data Structures and Algorithms</div>
+                  <div class="text-muted-foreground text-sm">60%</div>
+                </div>
+                <div class="bg-muted h-2 rounded-full">
+                  <div class="bg-primary h-full w-[60%] rounded-full"></div>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <div class="font-medium">Web Development Fundamentals</div>
+                  <div class="text-muted-foreground text-sm">90%</div>
+                </div>
+                <div class="bg-muted h-2 rounded-full">
+                  <div class="bg-primary h-full w-[90%] rounded-full"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Upcoming Assignments -->
+          <div class="bg-card col-span-3 rounded-lg border p-4 shadow-sm">
+            <div class="mb-4">
+              <h3 class="font-semibold">Upcoming Assignments</h3>
+              <p class="text-muted-foreground text-sm">
+                Due within the next 7 days
+              </p>
+            </div>
+            <div class="space-y-4">
+              <div class="flex items-center">
+                <div class="space-y-1">
+                  <p class="text-sm font-medium leading-none">
+                    Data Structures Quiz
+                  </p>
+                  <p class="text-muted-foreground text-sm">Due in 2 days</p>
+                </div>
+              </div>
+              <div class="flex items-center">
+                <div class="space-y-1">
+                  <p class="text-sm font-medium leading-none">
+                    Web Dev Project Submission
+                  </p>
+                  <p class="text-muted-foreground text-sm">Due in 5 days</p>
+                </div>
+              </div>
+              <div class="flex items-center">
+                <div class="space-y-1">
+                  <p class="text-sm font-medium leading-none">
+                    ML Algorithm Implementation
+                  </p>
+                  <p class="text-muted-foreground text-sm">Due in 7 days</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
