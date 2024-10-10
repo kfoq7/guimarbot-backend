@@ -9,7 +9,7 @@ const courseList = (data.data as Course[]).slice(0, 4)
 ---
 
 <ul
-  id="#courses"
+  id="courses"
   class="mt-10 grid grid-cols-1 gap-5 py-5 md:grid-cols-2 lg:grid-cols-4"
 >
   {
@@ -32,7 +32,7 @@ const courseList = (data.data as Course[]).slice(0, 4)
 
           <div class="w-full p-2.5">
             <h1 class="text-lg font-bold">{title}</h1>
-            <p class="text-gray-50/20">{description}</p>
+            <p class="text-gray-500">{description}</p>
             <div>{instructor}</div>
             <span>S/. {price}</span>
           </div>
