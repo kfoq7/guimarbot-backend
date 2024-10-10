@@ -1,5 +1,5 @@
 ---
-import MenuDrop  from './ui/MenuDrop'
+import MenuDrop from './ui/MenuDrop'
 
 export interface Props {
   isHomePage?: boolean
@@ -51,7 +51,6 @@ const { isHomePage } = Astro.props
       >
         {
           links.map(({ to, name }) => {
-            console.log(!to.includes('#'))
             if (!to.includes('#')) {
               return <MenuDrop label={name}} client:load />
             }
