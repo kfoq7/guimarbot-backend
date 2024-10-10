@@ -5,7 +5,7 @@ export interface Props {
 
 const links = [
   {
-    to: '#',
+    to: '/#',
     name: 'Home'
   },
   {
@@ -13,11 +13,11 @@ const links = [
     name: 'Comunidad'
   },
   {
-    to: '#courses',
+    to: '/#courses',
     name: 'Cursos'
   },
   {
-    to: '#foros',
+    to: '/#foros',
     name: 'Foros'
   }
 ]
@@ -28,7 +28,7 @@ const { isHomePage } = Astro.props
 <header
   id="main-header"
   class:list={[
-    { 'is-home-page text-white': isHomePage },
+    { 'is-home-page text-white backdrop-blur-sm': isHomePage },
     { 'bg-white text-gray-900': !isHomePage },
     'fixed z-[9999] w-full overflow-visible bg-transparent py-2 transition-colors duration-300'
   ]}
@@ -65,7 +65,7 @@ const { isHomePage } = Astro.props
       class="mr-4 flex items-center justify-end gap-4 md:flex-grow md:basis-0"
     >
       <a
-        href="/login"
+        href="/auth/login"
         class="flex items-center justify-center rounded-md border border-none px-4 py-2.5 text-lg leading-none transition-transform duration-300 hover:scale-105"
       >
         Aprende ahora
