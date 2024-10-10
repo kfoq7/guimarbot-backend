@@ -6,5 +6,6 @@ export interface ContentPlan {
 export interface Plan {
   id: number
   name: string
+  price: number
   content: ContentPlan[]
 }

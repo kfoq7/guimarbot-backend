@@ -7,7 +7,7 @@ export interface Props {
 
 const { plan } = Astro.props
 
-const { name, content } = plan
+const { name, content, price } = plan
 ---
 
 <div
@@ -18,11 +18,14 @@ const { name, content } = plan
       {name}
     </h1>
 
-    <span
-      class="rounded-full border border-black px-2.5 py-0.5 text-gray-200/80 backdrop-blur-sm"
-    >
-      Mensual
-    </span>
+    <div class="text-white">
+      S/. {price}
+      <span
+        class="rounded-full border border-black px-2.5 py-0.5 font-bold text-gray-100/80 backdrop-blur-sm"
+      >
+        Mensual
+      </span>
+    </div>
   </div>
 
   <p class="mt-4 text-white">
