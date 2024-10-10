@@ -2,6 +2,10 @@
 import Layout from '@/layouts/Layout.astro'
 
 const { courseName } = Astro.params
+const response = await fetch(`http://localhost:4321/api/${courseName}`)
+const data = await response.json()
+const { title, description, instructor, price, duration } = data.data
+
 // src="https://www.shutterstock.com/image-photo/elearning-education-internet-lessons-online-600nw-2158034833.jpg"
 ---
 
@@ -23,10 +27,10 @@ const { courseName } = Astro.params
     </div>
 
     <div class="col-[1/2] row-[3/4] px-4">
-      <h1 class="text-2xl font-bold sm:text-3xl md:text-4xl">title</h1>
+      <h1 class="text-2xl font-bold sm:text-3xl md:text-4xl">{title}</h1>
       <div class="mt-6">
-        <h2 class="text-lg font-bold md:text-xl">Description</h2>
-        <p>description</p>
+        <h2 class="text-lg font-bold md:text-xl">{description}</h2>
+        <p>{description}</p>
       </div>
     </div>
 
@@ -47,8 +51,7 @@ const { courseName } = Astro.params
       <div class="mt-6 flex flex-col gap-2.5">
         <h2 class="text-lg font-bold md:text-xl">Contenido del curso</h2>
         <div class="flex flex-wrap items-center gap-2 text-sm">
-          <span>5 secciones</span>
-          <span>5 clases</span>
+          <span>{duration}</span>
         </div>
       </div>
     </div>
@@ -59,14 +62,14 @@ const { courseName } = Astro.params
         <ul class="flex flex-col gap-4">
           <li class="flex items-center justify-between">
             <p class="flex flex-1 items-center gap-2">Horas de video:</p>
-            <span>10h</span>
+            <span>{duration}</span>
           </li>
           <li class="flex items-center justify-between">
             <p class="flex flex-1 items-center gap-2">Lenguaje:</p>
             <span>Español</span>
           </li>
         </ul>
-        <span>Price: price</span>
+        <span>Price: {price}$</span>
 
         <button
           class="w-full rounded-md border border-gray-200/90 bg-blue-500 px-4 py-2.5 text-white transition-transform duration-300 hover:scale-105"
@@ -78,7 +81,7 @@ const { courseName } = Astro.params
         <h3 class="text-lg font-bold md:text-xl">Docente</h3>
         <header class="flex gap-3">
           <div>
-            <h4>teacherName</h4>
+            <h4>{instructor}</h4>
             <p>Creador de contendio</p>
           </div>
         </header>
