@@ -3,14 +3,14 @@ import { Image } from 'astro:assets'
 import { transformTitleParam } from '@/utils'
 import type { Course } from '@/types/Course'
 
-const response = await fetch('http://localhost:8080/api/courses')
+const response = await fetch('http://localhost:4321/api/courses')
 const data = await response.json()
-const courseList = (data as Course[]).slice(0, 4)
+const courseList = (data.data as Course[]).slice(0, 4)
 ---
 
 <ul
   id="#courses"
-  class="mt-20 grid grid-cols-1 gap-5 py-5 md:grid-cols-2 lg:grid-cols-4"
+  class="mt-10 grid grid-cols-1 gap-5 py-5 md:grid-cols-2 lg:grid-cols-4"
 >
   {
     courseList.map(({ title, price, description, teacherName }) => (
