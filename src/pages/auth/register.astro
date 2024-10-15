@@ -1,0 +1,117 @@
+---
+
+---
+
+<div
+  class="flex h-screen w-full items-center justify-center"
+  id="three-container"
+>
+  <div class="mx-auto w-full max-w-md rounded-lg bg-white shadow-2xl">
+    <div class="border-b border-gray-200 p-6">
+      <h2 class="text-xl font-semibold">Register</h2>
+      <p class="text-gray-500">Create a new account to get started.</p>
+    </div>
+    <div class="p-6">
+      <form class="space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="space-y-2">
+            <label
+              for="firstName"
+              class="block text-sm font-medium text-gray-700">First name</label
+            >
+            <input
+              id="firstName"
+              name="firstName"
+              type="text"
+              placeholder="John"
+              class="block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              required
+            />
+          </div>
+          <div class="space-y-2">
+            <label
+              for="lastName"
+              class="block text-sm font-medium text-gray-700">Last name</label
+            >
+            <input
+              id="lastName"
+              name="lastName"
+              type="text"
+              placeholder="Doe"
+              class="block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              required
+            />
+          </div>
+        </div>
+        <div class="space-y-2">
+          <label for="email" class="block text-sm font-medium text-gray-700"
+            >Email</label
+          >
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="johndoe@example.com"
+            class="block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            required
+          />
+        </div>
+        <div class="space-y-2">
+          <label for="password" class="block text-sm font-medium text-gray-700"
+            >Password</label
+          >
+          <input
+            id="password"
+            name="password"
+            type="password"
+            class="block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full rounded-md bg-indigo-600 px-4 py-2 font-semibold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        >
+          Register
+        </button>
+      </form>
+    </div>
+    <div class="border-t border-gray-200 p-6 text-center">
+      <p class="text-sm text-gray-500">
+        Already have an account? <a
+          href="/auth/login"
+          class="text-indigo-600 hover:underline">Sign in</a
+        >
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  import * as THREE from 'three'
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const { default: HALO } = await import('vanta/dist/vanta.fog.min')
+
+      HALO({
+        el: '#three-container',
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.0,
+        minWidth: 200.0,
+        highlightColor: 0x1dff,
+        midtoneColor: 0x91a2fa,
+        lowlightColor: 0xff,
+        baseColor: 0x6667f0,
+        blurFactor: 0.9,
+        speed: 2.0,
+        zoom: 0.8,
+        THREE: THREE
+      })
+    } catch (error) {
+      console.error('Error al cargar el efecto Vanta:', error)
+    }
+  })
+</script>
