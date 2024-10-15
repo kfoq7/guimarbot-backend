@@ -17,7 +17,10 @@
         </h1>
         <p class="text-sm text-gray-500">
           No tienes una cuenta?{' '}
-          <a href="/signup" class="text-primary font-medium hover:underline">
+          <a
+            href="/auth/register"
+            class="text-primary font-medium hover:underline"
+          >
             Sign up
           </a>
         </p>
@@ -67,8 +70,13 @@
             </a>
           </div>
         </div>
-
-        <button type="submit" class="w-full"> Sign in </button>
+        <button
+          type="submit"
+          class="w-full rounded-md bg-black px-4 py-2 text-white hover:bg-gray-900"
+          onclick="location.href='/course/dashboard'"
+        >
+          Sign in
+        </button>
       </form>
 
       <div class="mt-6">
