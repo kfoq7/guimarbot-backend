@@ -20,7 +20,7 @@ const selectedCourses = [{}, {}, {}, {}]
         <ul class="flex flex-col gap-y-4">
           {
             selectedCourses.map(() => (
-              <li class="flex w-full gap-x-4 rounded-md bg-gray-500 px-2 py-3 backdrop-blur-sm">
+              <li class="flex w-full gap-x-4 rounded-md bg-gray-200/20 px-2 py-3 backdrop-blur-sm">
                 <picture class="px-2">
                   <img
                     src="/img/courses/ultimas-novedades-javascript.webp"
@@ -30,10 +30,19 @@ const selectedCourses = [{}, {}, {}, {}]
                   />
                 </picture>
 
-                <section>
-                  <h2 class="text-balance text-2xl font-bold text-white">
+                <section class="flex flex-1 flex-col justify-between">
+                  <h2 class="text-balance text-2xl font-bold">
                     Ultimas novedades de javascript
                   </h2>
+
+                  <div class="mt-4 flex justify-between">
+                    <div class="text-gray-600">Hello</div>
+                    <div class="p-2">
+                      <button class="rounded-md bg-blue-500 px-4 py-2 text-white">
+                        Quitar
+                      </button>
+                    </div>
+                  </div>
                 </section>
               </li>
             ))
