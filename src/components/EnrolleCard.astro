@@ -11,36 +11,41 @@ const { name, content, price } = plan
 ---
 
 <div
-  class="w-full rounded-md border-2 border-gray-800/80 bg-midnight-navy px-5 py-3 drop-shadow-md md:w-96"
+  class="flex h-[475px] w-full flex-col overflow-visible rounded-md border border-gray-800/80 bg-gray-100/80 px-5 py-3 drop-shadow-md md:w-96"
 >
-  <div class="flex items-center justify-between">
-    <h1 class="text-left text-xl font-semibold text-white md:text-2xl">
-      {name}
-    </h1>
+  <!-- <div class="flex h-full flex-col"> -->
+  <div class="flex justify-start">
+    <div class="flex w-full items-center justify-between">
+      <h1 class="text-left text-xl font-bold text-midnight-navy md:text-2xl">
+        {name}
+      </h1>
 
-    <div class="text-white">
-      S/. {price}
-      <span
-        class="rounded-full border border-black px-2.5 py-0.5 font-bold text-gray-100/80 backdrop-blur-sm"
-      >
-        Mensual
-      </span>
+      <div class="text-gray-800/80">
+        S/. {price}
+        <span
+          class="rounded-full border border-black px-2.5 py-0.5 font-bold text-gray-800/80 backdrop-blur-sm"
+        >
+          Mensual
+        </span>
+      </div>
     </div>
   </div>
 
-  <p class="mt-4 text-white">
+  <p class="mt-4 text-black">
     Para <span class="font-bold">1 estudiante</span>
   </p>
 
-  <ul class="my-4 flex flex-col gap-y-3 text-white">
+  <ul
+    class="my-4 flex flex-col justify-normal gap-y-3 text-gray-800/30 md:flex-grow"
+  >
     {
       content.map(({ description, active }) => (
-        <ol class:list={['', { 'text-gray-100/30': active }]}>{description}</ol>
+        <ol class:list={['', { 'text-black/80': active }]}>{description}</ol>
       ))
     }
   </ul>
 
-  <div class="mt-4 w-full">
+  <div class="mt-4 flex w-full justify-end">
     <a
       href="/auth/login"
       class="block w-full rounded-md border border-blue-600 bg-blue-800 px-3 py-2 text-center text-white transition-all duration-300 hover:scale-105"
@@ -48,4 +53,5 @@ const { name, content, price } = plan
       Adquirir
     </a>
   </div>
+  <!-- </div> -->
 </div>

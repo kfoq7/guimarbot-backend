@@ -2,56 +2,64 @@
 import EnrolleCard from '@/components/EnrolleCard.astro'
 import type { Plan } from '@/types/Plan'
 
-const plans: Plan[] = [
-  {
-    id: 1,
-    name: 'Basic plan',
-    price: 200,
-    content: [
-      {
-        description: 'Limite de acceso por cursos',
-        active: true
-      },
-      {
-        description:
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-        active: false
-      }
-    ]
-  },
-  {
-    id: 1,
-    name: 'Basic plan',
-    price: 300,
-    content: [
-      {
-        description: 'Limite de acceso por cursos',
-        active: true
-      },
-      {
-        description:
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-        active: false
-      }
-    ]
-  },
-  {
-    id: 1,
-    name: 'Basic description',
-    price: 500,
-    content: [
-      {
-        description: 'Limite de acceso por cursos',
-        active: true
-      },
-      {
-        description:
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-        active: false
-      }
-    ]
-  }
-]
+const response = await fetch('http://localhost:4321/api/plans')
+const data = await response.json()
+console.log(
+  data.data.map(() => {
+    console.log('asdf')
+  })
+)
+const plans = data.data as Plan[]
+// const plans: Plan[] = [
+//   {
+//     id: 1,
+//     name: 'Basic plan',
+//     price: 200,
+//     content: [
+//       {
+//         description: 'Limite de acceso por cursos',
+//         active: true
+//       },
+//       {
+//         description:
+//           'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+//         active: false
+//       }
+//     ]
+//   },
+//   {
+//     id: 1,
+//     name: 'Basic plan',
+//     price: 300,
+//     content: [
+//       {
+//         description: 'Limite de acceso por cursos',
+//         active: true
+//       },
+//       {
+//         description:
+//           'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+//         active: false
+//       }
+//     ]
+//   },
+//   {
+//     id: 1,
+//     name: 'Basic description',
+//     price: 500,
+//     content: [
+//       {
+//         description: 'Limite de acceso por cursos',
+//         active: true
+//       },
+//       {
+//         description:
+//           'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+//         active: false
+//       }
+//     ]
+//   }
+// ]
 ---
 
 <section class="mt-20 px-4" id="plans">

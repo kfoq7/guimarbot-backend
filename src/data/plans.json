@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "name": "Basic Plan",
+    "price": 200,
+    "content": [
+      {
+        "description": "Acceso limitado a 5 cursos por mes",
+        "active": true
+      },
+      {
+        "description": "Soporte por correo electrónico",
+        "active": true
+      },
+      {
+        "description": "Certificados de finalización",
+        "active": false
+      },
+      {
+        "description": "Acceso a foros de discusión",
+        "active": false
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Standard Plan",
+    "price": 300,
+    "content": [
+      {
+        "description": "Acceso ilimitado a todos los cursos",
+        "active": true
+      },
+      {
+        "description": "Soporte por correo electrónico y chat",
+        "active": true
+      },
+      {
+        "description": "Certificados de finalización",
+        "active": true
+      },
+      {
+        "description": "Acceso a foros de discusión",
+        "active": true
+      },
+      {
+        "description": "Descarga de materiales del curso",
+        "active": false
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Premium Plan",
+    "price": 500,
+    "content": [
+      {
+        "description": "Acceso ilimitado a todos los cursos",
+        "active": true
+      },
+      {
+        "description": "Soporte prioritario 24/7",
+        "active": true
+      },
+      {
+        "description": "Certificados de finalización avanzados",
+        "active": true
+      },
+      {
+        "description": "Acceso a foros de discusión exclusivos",
+        "active": true
+      },
+      {
+        "description": "Descarga de materiales del curso",
+        "active": true
+      },
+      {
+        "description": "Mentoría personalizada mensual",
+        "active": true
+      }
+    ]
+  }
+]
