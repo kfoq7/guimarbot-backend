@@ -1,7 +1,5 @@
 ---
 import '@fontsource-variable/inter'
-import Footer from '@/components/Footer.astro'
-import Header from '@/components/Header.astro'
 import BaseHead from '@/components/BaseHead.astro'
 
 interface Props {
@@ -18,11 +16,7 @@ const { title, isHomePage } = Astro.props
     <BaseHead title={title} />
   </head>
   <body class="overflow-x-hidden font-sans">
-    <Header isHomePage={isHomePage} />
-
     <slot />
-
-    <Footer />
   </body>
 </html>
 

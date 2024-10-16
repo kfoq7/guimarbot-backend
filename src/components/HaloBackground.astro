@@ -1,0 +1,120 @@
+<div id="halo-background-container" class="absolute h-full w-1/2"></div>
+
+<script>
+  import * as THREE from 'three'
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const { default: HALO } = await import('vanta/dist/vanta.fog.min')
+
+      HALO({
+        el: '#halo-background-container',
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.0,
+        minWidth: 200.0,
+        highlightColor: 0xffffff,
+        midtoneColor: 0x1df5,
+        lowlightColor: 0xffffff,
+        baseColor: 0xfc,
+        blurFactor: 0.54,
+        speed: 5.0,
+        zoom: 0.9,
+        THREE: THREE
+      })
+    } catch (error) {
+      console.error('Error al cargar el efecto Vanta:', error)
+    }
+  })
+</script>
+
+<script>
+  import * as THREE from 'three'
+
+  const container = document.getElementById('halo-background-container')
+  if (container) {
+    const scene = new THREE.Scene()
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      container.clientWidth / container.clientHeight,
+      0.1,
+      1000
+    )
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }) // alpha true para fondo transparente
+    renderer.setSize(container.clientWidth, container.clientHeight)
+    container.appendChild(renderer.domElement)
+
+    // Fondo del contenedor
+    scene.background = null // Fondo transparente para mezclar con Vanta
+
+    const vertexShader = `
+      varying vec2 vUv;
+      void main() {
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `
+
+    const fragmentShader = `
+      varying vec2 vUv;
+      void main() {
+        float dist = distance(vUv, vec2(0.5, 0.5));
+        float alpha = smoothstep(0.4, 0.5, dist); // Degradado en el borde
+        gl_FragColor = vec4(0.0, 0.0, 1.0, 1.0 - alpha);
+      }
+    `
+
+    const shaderMaterial = new THREE.ShaderMaterial({
+      vertexShader,
+      fragmentShader,
+      transparent: true // Hacer que el material sea transparente
+    })
+
+    const geometry = new THREE.CircleGeometry(2, 32)
+    const material = new THREE.MeshBasicMaterial({ color: 0x1e1e2e })
+    const circle = new THREE.Mesh(geometry, shaderMaterial)
+    scene.add(circle)
+
+    camera.position.z = 5
+
+    const mouse = new THREE.Vector2()
+    const target = new THREE.Vector2()
+    const lerp = 0.05
+    const maxOffset = 0.3
+
+    function onMouseMove(event: MouseEvent) {
+      if (!container) return
+
+      const rect = container.getBoundingClientRect()
+      mouse.x = ((event.clientX - rect.left) / container.clientWidth) * 2 - 1
+      mouse.y = -((event.clientY - rect.top) / container.clientHeight) * 2 + 1
+
+      target.x = Math.max(Math.min(mouse.x * maxOffset, maxOffset), -maxOffset)
+      target.y = Math.max(Math.min(mouse.y * maxOffset, maxOffset), -maxOffset)
+    }
+
+    container.addEventListener('mousemove', onMouseMove)
+
+    function animate() {
+      requestAnimationFrame(animate)
+
+      circle.position.x += (target.x - circle.position.x) * lerp
+      circle.position.y += (target.y - circle.position.y) * lerp
+
+      renderer.render(scene, camera)
+    }
+
+    function onWindowResize() {
+      if (!container) return
+
+      camera.aspect = container.clientWidth / container.clientHeight
+      camera.updateProjectionMatrix()
+      renderer.setSize(container.clientWidth, container.clientHeight)
+    }
+
+    window.addEventListener('resize', onWindowResize)
+
+    animate()
+  }
+</script>
