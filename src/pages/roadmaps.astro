@@ -2,6 +2,7 @@
 import { transformTitleParam } from '@/utils'
 import type { Course } from '@/types/Course'
 import Layout from '@/layouts/Layout.astro'
+import Road from '@/components/roadmap.astro'
 
 const response = await fetch('http://localhost:4321/api/courses')
 const data = await response.json()
@@ -51,4 +52,5 @@ const courseList = (data.data as Course[]).slice(0, 4)
       }
     </ul>
   </main>
+  <Road />
 </Layout>
