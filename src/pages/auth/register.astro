@@ -12,7 +12,7 @@
       <p class="text-gray-500">Create a new account to get started.</p>
     </div>
     <div class="p-6">
-      <form class="space-y-4">
+      <form class="space-y-4" id="registerForm">
         <div class="grid grid-cols-2 gap-4">
           <div class="space-y-2">
             <label
@@ -114,4 +114,44 @@
       console.error('Error al cargar el efecto Vanta:', error)
     }
   })
+</script>
+
+<script>
+  document
+    .getElementById('registerForm')
+    .addEventListener('submit', async function (event) {
+      event.preventDefault()
+
+      const formData = new FormData(event.target)
+
+      const userData = {
+        names: formData.get('firstName'),
+        lastName: formData.get('lastName'),
+        email: formData.get('email'),
+        password: formData.get('password')
+      }
+
+      try {
+        const response = await fetch(
+          'http://localhost:3000/api/auth/register',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+          }
+        )
+
+        if (response.ok) {
+          alert('Usuario registrado con éxito')
+        } else {
+          const errorData = await response.json()
+          alert(`Error: ${errorData.message}`)
+        }
+      } catch (error) {
+        console.error('Error en la solicitud:', error)
+        alert('Ocurrió un error al registrar el usuario')
+      }
+    })
 </script>
