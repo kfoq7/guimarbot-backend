@@ -117,12 +117,15 @@
 </script>
 
 <script>
-  document
-    .getElementById('registerForm')
-    .addEventListener('submit', async function (event) {
+  import { $ } from '@/lib/dom-selector'
+
+  const registerForm = $('#registerForm')
+
+  if (registerForm) {
+    registerForm.addEventListener('submit', async function (event) {
       event.preventDefault()
 
-      const formData = new FormData(event.target)
+      const formData = new FormData(event.target as HTMLFormElement)
 
       const userData = {
         names: formData.get('firstName'),
@@ -133,7 +136,7 @@
 
       try {
         const response = await fetch(
-          'http://localhost:3000/api/auth/register',
+          `${import.meta.env.PUBLIC_API_URL}/auth/register`,
           {
             method: 'POST',
             headers: {
@@ -154,4 +157,5 @@
         alert('Ocurrió un error al registrar el usuario')
       }
     })
+  }
 </script>
