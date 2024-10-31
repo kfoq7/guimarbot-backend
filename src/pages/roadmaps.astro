@@ -4,9 +4,9 @@ import type { Course } from '@/types/Course'
 import Layout from '@/layouts/Layout.astro'
 import Road from '@/components/roadmap.astro'
 
-const response = await fetch('http://localhost:5006/api/courses')
+const response = await fetch('http://localhost:5006/api/course')
 const data = await response.json()
-const courseList = (data.data as Course[]).slice(0, 4)
+const courseList = (data as Course[]).slice(0, 4)
 ---
 
 <Layout title="RoadMap">
@@ -18,8 +18,8 @@ const courseList = (data.data as Course[]).slice(0, 4)
     >
       <h1 class="text-4xl font-extrabold text-gray-900">Roadmaps</h1>
       <p class="mt-4 text-center text-lg text-gray-600">
-        Welcome to the Roadmaps page! Explore a curated list of courses to guide
-        you on your learning journey.
+        Bienvenido a la pagina de Rutas! Bienvenido a la pagina de Rutas!
+        Explora una variedad de cursos para guiarte en tu viaje de Aprendizaje
       </p>
     </div>
 

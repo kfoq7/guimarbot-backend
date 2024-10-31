@@ -1,7 +1,13 @@
 import { useState } from 'react'
 
+interface Item {
+  href: string
+  label: string
+}
+
 interface Props {
   label: string
+  items: Item[]
 }
 
 export default function MenuDrop({ label }: Props) {
@@ -15,7 +21,6 @@ export default function MenuDrop({ label }: Props) {
       >
         {label}
         <svg
-          xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}

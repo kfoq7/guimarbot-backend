@@ -1,5 +1,6 @@
 ---
 import MenuDrop from './ui/MenuDrop'
+import UserProfile from './UserProfile'
 
 export interface Props {
   isHomePage?: boolean
@@ -52,7 +53,7 @@ const { isHomePage } = Astro.props
         {
           links.map(({ to, name }) => {
             if (!to.includes('#')) {
-              return <MenuDrop label={name}} client:load />
+              return <MenuDrop label={name} items={[]} client:load />
             }
 
             return (
@@ -69,16 +70,8 @@ const { isHomePage } = Astro.props
         }
       </ul>
     </nav>
-    <div
-      class="mr-4 flex items-center justify-end gap-4 md:flex-grow md:basis-0"
-    >
-      <a
-        href="/auth/login"
-        class="flex items-center justify-center rounded-md border border-none px-4 py-2.5 text-lg leading-none transition-transform duration-300 hover:scale-105"
-      >
-        Aprende ahora
-      </a>
-    </div>
+
+    <UserProfile client:load />
   </div>
 </header>
 

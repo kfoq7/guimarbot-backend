@@ -1,0 +1,166 @@
+---
+import Github from '@/components/Icons/Github.astro'
+import Twitter from '@/components/Icons/Twitter.astro'
+---
+
+<section class="flex w-full items-center justify-center bg-white md:w-1/2">
+  <div class="max-w-md space-y-6 px-4 py-12 sm:px-6 lg:px-8">
+    <div class="space-y-6">
+      <h1
+        class="text-balance text-5xl font-extrabold tracking-tight text-gray-900"
+      >
+        Inicia sesion en tu cuenta
+      </h1>
+      <p class="text-sm text-gray-500">
+        No tienes una cuenta?
+        <a
+          href="/auth/register"
+          class="text-primary font-medium hover:underline"
+        >
+          Sign up
+        </a>
+      </p>
+    </div>
+
+    <form class="space-y-3" id="loginForm">
+      <div>
+        <label for="email" class="sr-only"> Email address </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          autocomplete="email"
+          required
+          class="w-full rounded-md border-2 px-1.5 py-2.5 outline-none focus:border-gray-600"
+          placeholder="Email address"
+        />
+      </div>
+
+      <div>
+        <label for="password" class="sr-only"> Password </label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          required
+          class="w-full rounded-md border-2 px-1.5 py-2.5 outline-none focus:border-gray-600"
+          placeholder="Password"
+        />
+      </div>
+
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <input type="checkbox" id="remember-me" />
+          <label for="remember-me" class="ml-2 block text-sm text-gray-900">
+            Recuerdame
+          </label>
+        </div>
+
+        <div class="text-sm">
+          <a
+            href="/forgot-password"
+            class="text-primary font-medium hover:underline"
+          >
+            ¿Olvidasté tu contraseña?
+          </a>
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="w-full rounded-md bg-black px-4 py-2 text-white hover:bg-gray-900"
+      >
+        Iniciar sesión
+      </button>
+    </form>
+
+    <div class="mt-6">
+      <div class="relative">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-gray-300"></div>
+        </div>
+        <div class="relative flex justify-center text-sm">
+          <span class="bg-white px-2 text-gray-500">O continua con</span>
+        </div>
+      </div>
+
+      <div class="mt-6 grid grid-cols-2 gap-6 text-white">
+        <button
+          class="flex w-full items-center justify-center rounded-sm bg-zinc-900 py-4 transition-all duration-300 ease-in-out hover:scale-105"
+        >
+          <Twitter />
+          Twitter
+        </button>
+
+        <button
+          class="flex w-full items-center justify-center rounded-sm bg-zinc-900 py-4 transition-all duration-300 ease-in-out hover:scale-105"
+        >
+          <Github />
+          GitHub
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <script>
+  import type { AuthResponse } from '@/types/Response'
+
+  const loginForm = document.getElementById('loginForm')
+  const loginModal = document.getElementById('loginModal')
+  // const remainingAttemptsEl = document.getElementById('remainingAttempts')
+  const closeModalButton = document.getElementById('closeModal')
+
+  if (closeModalButton && loginModal && loginForm) {
+    let remainingAttempts = 3
+
+    closeModalButton.addEventListener('click', () => {
+      loginModal.classList.add('hidden')
+    })
+
+    loginForm.addEventListener('submit', async e => {
+      e.preventDefault()
+
+      const email = (document.getElementById('email') as HTMLInputElement).value
+      const password = (document.getElementById('password') as HTMLInputElement)
+        .value
+
+      try {
+        const response = await fetch(`${import.meta.env.API_URL}/auth/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email,
+            password
+          })
+        })
+
+        // const data = await response.json()
+
+        if (response.ok) {
+          window.location.href = '/'
+          const data = (await response.json()) as AuthResponse
+          localStorage.setItem('token', JSON.stringify(data.accessKey))
+        } else {
+          remainingAttempts--
+
+          const modalMessage = document.getElementById(
+            'modalMessage'
+          ) as HTMLElement
+
+          if (remainingAttempts > 0) {
+            modalMessage.innerText = `Tienes ${remainingAttempts} intentos restantes.`
+          } else {
+            modalMessage.innerText = `Has superado el número máximo de intentos.`
+          }
+
+          loginModal.classList.remove('hidden')
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    })
+  }
+</script> -->

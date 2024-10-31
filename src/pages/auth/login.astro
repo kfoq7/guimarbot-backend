@@ -1,6 +1,7 @@
 ---
 import Layout from '@/layouts/AuthLayout.astro'
 import HaloBackground from '@/components/HaloBackground.astro'
+import LoginForm from '@/sections/LoginForm.astro'
 ---
 
 <Layout title="Guimarbot - Inicia sesion">
@@ -13,7 +14,7 @@ import HaloBackground from '@/components/HaloBackground.astro'
       </div>
     </div>
 
-    <div class="flex w-full items-center justify-center bg-white md:w-1/2">
+    <!-- <div class="flex w-full items-center justify-center bg-white md:w-1/2">
       <div class="max-w-md space-y-8 px-4 py-12 sm:px-6 lg:px-8">
         <div class="space-y-6">
           <h1
@@ -129,7 +130,9 @@ import HaloBackground from '@/components/HaloBackground.astro'
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+
+    <LoginForm />
 
     <div id="loginModal" class="fixed inset-0 z-50 hidden">
       <div class="fixed inset-0 bg-gray-500 bg-opacity-75"></div>
@@ -149,7 +152,6 @@ import HaloBackground from '@/components/HaloBackground.astro'
                   class="h-6 w-6 text-red-600"
                   viewBox="0 0 16 16"
                   fill="#000000"
-                  xmlns="http://www.w3.org/2000/svg"
                   ><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g
                     id="SVGRepo_tracerCarrier"
                     stroke-linecap="round"
@@ -189,54 +191,66 @@ import HaloBackground from '@/components/HaloBackground.astro'
 </Layout>
 
 <script>
+  import type { AuthResponse } from '@/types/Response'
+
   const loginForm = document.getElementById('loginForm')
   const loginModal = document.getElementById('loginModal')
-  const remainingAttemptsEl = document.getElementById('remainingAttempts')
+  // const remainingAttemptsEl = document.getElementById('remainingAttempts')
   const closeModalButton = document.getElementById('closeModal')
 
-  let remainingAttempts = 3
+  if (closeModalButton && loginModal && loginForm) {
+    let remainingAttempts = 3
 
-  closeModalButton.addEventListener('click', () => {
-    loginModal.classList.add('hidden')
-  })
+    closeModalButton.addEventListener('click', () => {
+      loginModal.classList.add('hidden')
+    })
 
-  loginForm.addEventListener('submit', async e => {
-    e.preventDefault()
+    loginForm.addEventListener('submit', async e => {
+      e.preventDefault()
 
-    const email = document.getElementById('email').value
-    const password = document.getElementById('password').value
+      const email = (document.getElementById('email') as HTMLInputElement).value
+      const password = (document.getElementById('password') as HTMLInputElement)
+        .value
 
-    try {
-      const response = await fetch('http://localhost:5006/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email,
-          password
-        })
-      })
+      try {
+        const response = await fetch(
+          `${import.meta.env.PUBLIC_API_URL}/auth/login`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              email,
+              password
+            })
+          }
+        )
 
-      const data = await response.json()
-
-      if (response.ok) {
-        window.location.href = '/'
-      } else {
-        remainingAttempts--
-
-        if (remainingAttempts > 0) {
-          document.getElementById('modalMessage').innerText =
-            `Tienes ${remainingAttempts} intentos restantes.`
+        // const data = await response.json()
+        if (response.ok) {
+          const data = (await response.json()) as AuthResponse
+          const accessToken = data.accessToken
+          localStorage.setItem('token', accessToken)
+          window.location.href = '/'
         } else {
-          document.getElementById('modalMessage').innerText =
-            'Has superado el número máximo de intentos.'
-        }
+          remainingAttempts--
 
-        loginModal.classList.remove('hidden')
+          const modalMessage = document.getElementById(
+            'modalMessage'
+          ) as HTMLElement
+
+          if (remainingAttempts > 0) {
+            modalMessage.innerText = `Tienes ${remainingAttempts} intentos restantes.`
+          } else {
+            modalMessage.innerText = `Has superado el número máximo de intentos.`
+          }
+
+          loginModal.classList.remove('hidden')
+        }
+      } catch (error) {
+        console.error(error)
       }
-    } catch (error) {
-      console.error(error)
-    }
-  })
+    })
+  }
 </script>
