@@ -1,10 +1,5 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import type { Course } from '@/types/Course'
-
-const response = await fetch(`${import.meta.env.API_URL}/course`)
-const data = await response.json()
-const courses = data as Course[]
 ---
 
 <Layout title="All Courses">
@@ -44,7 +39,7 @@ const courses = data as Course[]
     </div>
 
     <h1 class="mb-8 text-center text-3xl font-bold">Cursos habilitados</h1>
-    <div id="courseContainer" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    <ul id="courseContainer" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
       <!-- {
         courses.map(course => (
           <div class="rounded-lg bg-white p-6 shadow-md">
@@ -57,7 +52,7 @@ const courses = data as Course[]
           </div>
         ))
       } -->
-    </div>
+    </ul>
   </div>
 </Layout>
 
@@ -65,33 +60,11 @@ const courses = data as Course[]
   import { $ } from '@/lib/dom-selector'
   import type { Course } from '@/types/Course'
 
-  async function fetchAllCourse() {
-    const response = await fetch(`${import.meta.env.PUBLIC_API_URL}/course`)
-    const data = await response.json()
-    return data
-  }
-
-  const courses = await fetchAllCourse()
   const courseContainer = $('#courseContainer')
+
   const filterCoursesBtn = $('#filterCoursesBtn')
   if (filterCoursesBtn) {
     filterCoursesBtn.addEventListener('click', filterCourses)
-  }
-
-  // const courses =
-  async function getCourseFitler(
-    categoryName: string,
-    minPrice: number,
-    maxPrice: number
-  ) {
-    const response = await fetch(
-      `${import.meta.env.PUBLIC_API_URL}/course/find-courses?category-name=${categoryName}&tag-name=${[].join(',')}&min-price=${minPrice}&
-maxPrice=${maxPrice}`
-    )
-
-    // ?category-name=${categoryName}&tag-name=${[].join(',')}&min-price=${minPrice}&maxPrice=${maxPrice}`
-    const data = await response.json()
-    return data
   }
 
   function renderCourses(filteredCourses: Course[]) {
@@ -99,14 +72,14 @@ maxPrice=${maxPrice}`
       courseContainer.innerHTML = ''
       filteredCourses.forEach(course => {
         courseContainer.innerHTML += `
-        <div class="rounded-lg bg-white p-6 shadow-md">
+        <li class="rounded-lg bg-white p-6 shadow-md">
           <h2 class="mb-2 text-xl font-semibold">${course.title}</h2>
           <p class="mb-4 text-gray-600">${course.description}</p>
           <p class="text-lg font-bold text-green-600">${course.price}</p>
           <button class="mt-4 w-full rounded bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600">
             Comprar ahora
           </button>
-        </div>
+        </li>
       `
       })
     }
@@ -118,12 +91,12 @@ maxPrice=${maxPrice}`
     const minPrice = $('#minPriceFilter') as HTMLInputElement
     const maxPrice = $('#maxPriceFilter') as HTMLInputElement
 
-    if (category) {
+    if (category && tag && minPrice && maxPrice) {
       const categoryFilter = category.value.toLowerCase()
       const tagFilter = tag.value.toLowerCase()
       const minPriceFitler = parseFloat(minPrice.value) || 0
       const maxPriceFitler = parseFloat(maxPrice.value) || Infinity
-
+      console.log(categoryFilter)
       const filteredCourses = await getCourseFitler(
         categoryFilter,
         minPriceFitler,
@@ -134,6 +107,29 @@ maxPrice=${maxPrice}`
     }
   }
 
+  // const courses =
+  async function getCourseFitler(
+    categoryName: string,
+    minPrice: number,
+    maxPrice: number
+  ) {
+    const response = await fetch(
+      `${import.meta.env.PUBLIC_API_URL}/course/find-courses?categoryName=${categoryName}&tagName=${[].join(',')}&minPrice=${minPrice}&maxPrice=${maxPrice}`
+    )
+
+    // ?category-name=${categoryName}&tag-name=${[].join(',')}&min-price=${minPrice}&maxPrice=${maxPrice}`
+    const data = await response.json()
+    return data
+  }
+
   // Initial render
+  async function fetchAllCourse() {
+    const response = await fetch(`${import.meta.env.PUBLIC_API_URL}/course`)
+    const data = await response.json()
+    return data
+  }
+
+  const courses = await fetchAllCourse()
+
   renderCourses(courses)
 </script>
