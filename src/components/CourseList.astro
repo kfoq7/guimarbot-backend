@@ -3,10 +3,9 @@ import { Image } from 'astro:assets'
 import { transformTitleParam } from '@/utils'
 import type { Course } from '@/types/Course'
 
-const response = await fetch(`${import.meta.env.API_URL}/course`)
+const response = await fetch(`${import.meta.env.API_URL}/course?limit=8`)
 const data = await response.json()
-const courseList = (data as Course[]).slice(0, 4)
-// console.log(data)
+const courseList = data as Course[]
 ---
 
 <ul
@@ -15,15 +14,15 @@ const courseList = (data as Course[]).slice(0, 4)
 >
   {
     courseList.map(({ title, price, description, teacherName }) => (
-      <li>
+      <li class="h-full">
         <a
           href={`/course/${transformTitleParam(title)}`}
-          class="flex cursor-pointer flex-col items-center justify-center rounded-md border border-gray-100 bg-white transition-colors duration-300 hover:drop-shadow-lg"
+          class="flex h-full cursor-pointer flex-col rounded-md bg-white transition-colors duration-300 hover:drop-shadow-lg"
         >
           <div class="relative">
             <Image
               src="/img/courses/ultimas-novedades-javascript.webp"
-              class="aspect-video w-full rounded-t-md"
+              class="aspect-[16/9] w-full rounded-t-md"
               alt="preview-course"
               width="400"
               height="400"
@@ -31,11 +30,12 @@ const courseList = (data as Course[]).slice(0, 4)
             />
           </div>
 
-          <div class="w-full p-2.5">
+          <div class="flex w-full grow flex-col p-2.5">
             <h1 class="text-lg font-bold">{title}</h1>
             <p class="text-gray-500">{description}</p>
             <div>{teacherName}</div>
-            <span>S/. {price}</span>
+
+            <span class="self-end">S/. {price}</span>
           </div>
         </a>
       </li>

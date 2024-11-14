@@ -1,4 +1,6 @@
 ---
+import Section from '@/components/ui/Section.astro'
+
 const testimonials = [
   {
     id: 1,
@@ -18,20 +20,24 @@ const testimonials = [
 ]
 ---
 
-<section class="my-20">
-  <h1 class="text-balance text-center text-2xl font-bold md:text-3xl">
-    ¿Qué opinan nuestro usuarios?
-  </h1>
+<Section className="to-blue-700">
+  <div class="flex flex-col items-center justify-center">
+    <h1 class="text-balance text-center text-2xl font-bold md:text-3xl">
+      ¿Qué opinan nuestro usuarios?
+    </h1>
 
-  <div class="mt-5 flex grid-cols-3 items-center justify-center gap-5 md:grid">
-    {
-      testimonials.map(({ description, user }) => (
-        <article class="rounded-md border border-gray-400/90 bg-white p-4">
-          <p class="text-pretty text-lg">{description}</p>
+    <div
+      class="mt-5 flex grid-cols-3 items-center justify-center gap-5 md:grid"
+    >
+      {
+        testimonials.map(({ description, user }) => (
+          <article class="rounded-md border border-gray-400/90 bg-white p-4">
+            <p class="text-pretty text-lg">{description}</p>
 
-          <span class="text-center font-bold">{user ?? 'Anónimus'}</span>
-        </article>
-      ))
-    }
+            <span class="text-center font-bold">{user ?? 'Anónimus'}</span>
+          </article>
+        ))
+      }
+    </div>
   </div>
-</section>
+</Section>

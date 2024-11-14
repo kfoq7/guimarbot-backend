@@ -1,0 +1,39 @@
+---
+import ListCourse from '@/components/Course/ListCourse'
+import Section from '@/components/ui/Section.astro'
+---
+
+<Section className="bg-blue-300">
+  <div class="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <input
+      id="categoryFilter"
+      type="text"
+      placeholder="Category"
+      class="rounded border p-2"
+    />
+    <input
+      id="tagFilter"
+      type="text"
+      placeholder="Tag"
+      class="rounded border p-2"
+    />
+    <input
+      id="minPriceFilter"
+      type="number"
+      placeholder="Min Price"
+      class="rounded border p-2"
+    />
+    <input
+      id="maxPriceFilter"
+      type="number"
+      placeholder="Max Price"
+      class="rounded border p-2"
+    />
+    <button
+      id="filterCoursesBtn"
+      class="rounded bg-blue-500 px-4 py-2 text-white">Apply Filters</button
+    >
+  </div>
+
+  <ListCourse client:only />
+</Section>

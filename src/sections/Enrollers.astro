@@ -1,5 +1,6 @@
 ---
 import EnrolleCard from '@/components/EnrolleCard.astro'
+import Section from '@/components/ui/Section.astro'
 import type { Plan } from '@/types/Plan'
 
 const response = await fetch('http://localhost:4321/api/plans')
@@ -7,7 +8,7 @@ const data = await response.json()
 const plans = data.data as Plan[]
 ---
 
-<section class="mt-20 px-4" id="plans">
+<Section>
   <h1 class="text-center text-2xl font-bold md:text-3xl">
     Elige el plan que mejor se adapte a ti
   </h1>
@@ -21,4 +22,4 @@ const plans = data.data as Plan[]
   >
     {plans.map(plan => <EnrolleCard plan={plan} />)}
   </div>
-</section>
+</Section>

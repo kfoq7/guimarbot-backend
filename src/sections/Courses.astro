@@ -1,18 +1,19 @@
 ---
 import CourseList from '@/components/CourseList.astro'
+import Section from '@/components/ui/Section.astro'
 ---
 
-<section class="mt-10 px-4 pt-20" id="courses">
+<Section className="bg-blue-500">
   <div class="flex flex-col items-center justify-center">
     <h1 class="text-center text-4xl font-bold">Lista de cursos mas</h1>
 
     <CourseList />
 
     <a
-      href="/courses"
+      href="/course"
       class="block rounded-md bg-blue-500 px-2 py-3 text-xl text-white"
     >
       Aprende de más cursos aquí
     </a>
   </div>
-</section>
+</Section>

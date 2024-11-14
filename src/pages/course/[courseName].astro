@@ -1,10 +1,14 @@
 ---
 import Layout from '@/layouts/Layout.astro'
+import type { Course } from '@/types/Course'
 
 const { courseName } = Astro.params
-const response = await fetch(`http://localhost:4321/api/${courseName}`)
-const data = await response.json()
-const { title, description, instructor, price, duration } = data.data
+const response = await fetch(
+  `${import.meta.env.API_URL}/course/find-by-title/${courseName}`
+)
+const course = (await response.json()) as Course
+
+const { title, description, teacherName, price, durationHours } = course
 
 // src="https://www.shutterstock.com/image-photo/elearning-education-internet-lessons-online-600nw-2158034833.jpg"
 ---
@@ -51,7 +55,7 @@ const { title, description, instructor, price, duration } = data.data
       <div class="mt-6 flex flex-col gap-2.5">
         <h2 class="text-lg font-bold md:text-xl">Contenido del curso</h2>
         <div class="flex flex-wrap items-center gap-2 text-sm">
-          <span>{duration}</span>
+          <span>{durationHours}</span>
         </div>
       </div>
     </div>
@@ -62,7 +66,7 @@ const { title, description, instructor, price, duration } = data.data
         <ul class="flex flex-col gap-4">
           <li class="flex items-center justify-between">
             <p class="flex flex-1 items-center gap-2">Horas de video:</p>
-            <span>{duration}</span>
+            <span>{durationHours}</span>
           </li>
           <li class="flex items-center justify-between">
             <p class="flex flex-1 items-center gap-2">Lenguaje:</p>
@@ -81,7 +85,7 @@ const { title, description, instructor, price, duration } = data.data
         <h3 class="text-lg font-bold md:text-xl">Docente</h3>
         <header class="flex gap-3">
           <div>
-            <h4>{instructor}</h4>
+            <h4>{teacherName}</h4>
             <p>Creador de contendio</p>
           </div>
         </header>
