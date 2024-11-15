@@ -10,6 +10,7 @@ export default function CourseFilter() {
         defaultOptions
         instanceId="categoryName"
         isClearable
+        placeholder="Seleciona una categoria..."
         onChange={selectedOption => {
           $courseFilters.setKey('categoryName', `${selectedOption?.value}`)
         }}
@@ -29,6 +30,7 @@ export default function CourseFilter() {
         defaultOptions
         instanceId="tagNames"
         isMulti
+        placeholder="Seleciona tags..."
         isSearchable={false}
         onChange={selectedOptions => {
           $courseFilters.setKey(

@@ -1,7 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import Hero from '@/components/Hero.astro'
-// import Guimarbot from '@/components/Guimarbot.astro'
+import Guimarbot from '@/components/Guimarbot.astro'
 import Why from '@/sections/Why.astro'
 import Enrollers from '@/sections/Enrollers.astro'
 import Courses from '@/sections/Courses.astro'
@@ -9,7 +9,7 @@ import Testimonials from '@/sections/Testimonials.astro'
 ---
 
 <Layout title="Welcome to Astro." isHomePage>
-  <!-- <Guimarbot /> -->
+  <Guimarbot />
   <Hero />
 
   <main>
@@ -25,6 +25,8 @@ import Testimonials from '@/sections/Testimonials.astro'
   if (!header) throw new Error('Header not found')
 
   const windowHeight = window.innerHeight
+
+  header.classList.remove('bg-white')
 
   function updateHeaderBackground() {
     if (window.scrollY > windowHeight * 0.9 && header) {

@@ -17,7 +17,7 @@ const { title, isHomePage } = Astro.props
   <head>
     <BaseHead title={title} />
   </head>
-  <body class="overflow-x-hidden font-sans">
+  <body class="overflow-x-hidden overflow-y-scroll font-sans">
     <Header />
 
     <slot />
@@ -31,6 +31,5 @@ const { title, isHomePage } = Astro.props
     font-family: 'Inter Variable', sans-serif;
     background-color: #f6f6f6;
     scroll-behavior: smooth;
-    scrollbar-gutter: stable;
   }
 </style>
