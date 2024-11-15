@@ -1,8 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-
 import Hero from '@/components/Hero.astro'
-import Guimarbot from '@/components/Guimarbot.astro'
+// import Guimarbot from '@/components/Guimarbot.astro'
 import Why from '@/sections/Why.astro'
 import Enrollers from '@/sections/Enrollers.astro'
 import Courses from '@/sections/Courses.astro'
@@ -20,3 +19,39 @@ import Testimonials from '@/sections/Testimonials.astro'
     <Enrollers />
   </main>
 </Layout>
+
+<script>
+  const header = document.getElementById('main-header')
+  if (!header) throw new Error('Header not found')
+
+  const windowHeight = window.innerHeight
+
+  function updateHeaderBackground() {
+    if (window.scrollY > windowHeight * 0.9 && header) {
+      header.classList.add('bg-gray-100')
+      header.classList.add('text-gray-900')
+      header.classList.remove('bg-transparent')
+      header.classList.remove('text-white')
+      header.classList.add('shadow-xl')
+    } else if (header) {
+      header.classList.remove('bg-gray-100')
+      header.classList.remove('text-gray-900')
+      header.classList.add('bg-transparent')
+      header.classList.add('text-white')
+      header.classList.remove('shadow-xl')
+    }
+  }
+
+  let ticking = false
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateHeaderBackground()
+        ticking = false
+      })
+      ticking = true
+    }
+  })
+
+  updateHeaderBackground()
+</script>

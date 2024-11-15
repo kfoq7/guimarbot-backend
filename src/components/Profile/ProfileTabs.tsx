@@ -28,15 +28,18 @@ export default function LoginTabs() {
     <TabGroup className="mx-5">
       <TabList className="flex justify-between gap-x-2 rounded-lg bg-gray-200 p-1 shadow-sm">
         {sections.map(({ tabName }) => (
-          <Tab className="w-full rounded-lg bg-white px-4 py-2 text-center font-semibold shadow-sm outline-none hover:bg-gray-300">
+          <Tab
+            key={tabName}
+            className="w-full rounded-lg bg-white px-4 py-2 text-center font-semibold shadow-sm outline-none hover:bg-gray-300"
+          >
             {tabName}
           </Tab>
         ))}
       </TabList>
 
       <TabPanels>
-        {sections.map(({ contentTab }) => (
-          <TabPanel>{contentTab}</TabPanel>
+        {sections.map(({ tabName, contentTab }) => (
+          <TabPanel key={tabName}>{contentTab}</TabPanel>
         ))}
       </TabPanels>
     </TabGroup>

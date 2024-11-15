@@ -14,7 +14,7 @@ export default function MenuDrop({ label }: Props) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div>
+    <div className="w-full">
       <button
         className="flex gap-x-2 px-2 py-2"
         onClick={() => setIsOpen(!isOpen)}

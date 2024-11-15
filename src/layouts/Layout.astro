@@ -18,7 +18,7 @@ const { title, isHomePage } = Astro.props
     <BaseHead title={title} />
   </head>
   <body class="overflow-x-hidden font-sans">
-    <Header isHomePage={isHomePage} />
+    <Header />
 
     <slot />
 
@@ -32,11 +32,5 @@ const { title, isHomePage } = Astro.props
     background-color: #f6f6f6;
     scroll-behavior: smooth;
     scrollbar-gutter: stable;
-  }
-
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
   }
 </style>

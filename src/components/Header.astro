@@ -2,10 +2,6 @@
 import MenuDrop from './ui/MenuDrop'
 import UserProfile from './UserProfile'
 
-export interface Props {
-  isHomePage?: boolean
-}
-
 const links = [
   {
     to: '/#',
@@ -24,20 +20,18 @@ const links = [
     name: 'Planes'
   }
 ]
-
-const { isHomePage } = Astro.props
 ---
 
 <header
   id="main-header"
   class:list={[
-    { 'is-home-page text-white backdrop-blur-sm': isHomePage },
-    { 'bg-white text-gray-900': !isHomePage },
-    'fixed z-[200] w-full overflow-visible bg-transparent py-2 transition-colors duration-300'
+    // { 'is-home-page text-white backdrop-blur-sm': isHomePage },
+    // { 'bg-white text-gray-900': !isHomePage },
+    'fixed z-[9999] w-full overflow-visible bg-transparent py-2 backdrop-blur-0 transition-colors duration-300'
   ]}
 >
   <div
-    class="mx-auto grid max-w-screen-2xl grid-cols-[auto_1fr] items-center justify-center gap-x-10 md:flex md:justify-normal"
+    class="mx-auto grid max-w-[1200px] grid-cols-[auto_1fr] items-center justify-center gap-x-10 md:flex md:justify-normal"
   >
     <div class="flex justify-start md:flex-grow md:basis-0">
       <a href="#" class="ml-6 flex items-center gap-x-1">
@@ -71,44 +65,16 @@ const { isHomePage } = Astro.props
       </ul>
     </nav>
 
-    <UserProfile client:load />
+    <div
+      class="mr-4 flex items-center justify-end gap-4 md:flex-grow md:basis-0"
+    >
+      <UserProfile client:only="react" />
+      <!-- <a
+        href="/auth/login"
+        class="flex items-center justify-center rounded-md border border-none px-4 py-2.5 text-lg leading-none transition-transform duration-300 hover:scale-105"
+      >
+        Aprende ahora
+      </a> -->
+    </div>
   </div>
 </header>
-
-<script>
-  const header = document.getElementById('main-header')
-  if (!header) throw new Error('Header not found')
-
-  if (header.classList.contains('is-home-page')) {
-    const windowHeight = window.innerHeight
-
-    function updateHeaderBackground() {
-      if (window.scrollY > windowHeight * 0.9 && header) {
-        header.classList.add('bg-gray-100')
-        header.classList.add('text-gray-900')
-        header.classList.remove('bg-transparent')
-        header.classList.remove('text-white')
-        header.classList.add('shadow-xl')
-      } else if (header) {
-        header.classList.remove('bg-gray-100')
-        header.classList.remove('text-gray-900')
-        header.classList.add('bg-transparent')
-        header.classList.add('text-white')
-        header.classList.remove('shadow-xl')
-      }
-    }
-
-    let ticking = false
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          updateHeaderBackground()
-          ticking = false
-        })
-        ticking = true
-      }
-    })
-
-    updateHeaderBackground()
-  }
-</script>
