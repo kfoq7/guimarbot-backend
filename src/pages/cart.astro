@@ -1,76 +1,10 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-
-const selectedCourses = [{}, {}, {}, {}]
+import CartMain from '@/components/Cart/Cart'
 ---
 
 <Layout title="Cart">
-  <main class="mx-auto max-w-7xl px-4 pt-28">
-    <div class="space-y-2">
-      <div class="flex gap-x-1">
-        <a href="/" class="text-sm"> Home</a>
-        <span class="text-sm text-gray-500/80">- Tu carrito de compras </span>
-      </div>
-
-      <h1 class="text-4xl font-bold">Tu carrito de compras</h1>
-    </div>
-
-    <div class="mt-6 grid gap-6 md:grid-cols-[1fr_330px]">
-      <div class="h-[50vh] overflow-y-auto rounded-sm py-2">
-        <ul class="flex flex-col gap-y-4">
-          {
-            selectedCourses.map(() => (
-              <li class="flex w-full gap-x-4 rounded-md bg-gray-200/20 px-2 py-3 backdrop-blur-sm">
-                <picture class="px-2">
-                  <img
-                    src="/img/courses/ultimas-novedades-javascript.webp"
-                    alt=""
-                    width="275"
-                    class="aspect-[275/155] rounded-md bg-cover object-cover"
-                  />
-                </picture>
-
-                <section class="flex flex-1 flex-col justify-between">
-                  <h2 class="text-balance text-2xl font-bold">
-                    Ultimas novedades de javascript
-                  </h2>
-
-                  <div class="mt-4 flex justify-between">
-                    <div class="text-gray-600">Hello</div>
-                    <div class="p-2">
-                      <button class="rounded-md bg-blue-500 px-4 py-2 text-white">
-                        Quitar
-                      </button>
-                    </div>
-                  </div>
-                </section>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-
-      <div class="py-3">
-        <div class="h-60 space-y-4 rounded-md bg-gray-400/80 px-4 py-3">
-          <div class="flex items-center justify-between">
-            <h3 class="text-white">Total estimando</h3>
-            <span>S/. 183</span>
-          </div>
-
-          <p class="mt-4 text-pretty">
-            Sales tax will be calculated during checkout where applicable
-          </p>
-
-          <a
-            href="/cart/payment"
-            class="hover::bg-blue-700 block w-full rounded-md border border-blue-400 bg-blue-500 px-3 py-2 transition-all duration-300 hover:scale-105"
-          >
-            Continuar con pago
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div></div>
-  </main>
+  <div class="flex h-screen flex-col">
+    <CartMain client:idle />
+  </div>
 </Layout>

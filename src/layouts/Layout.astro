@@ -20,7 +20,9 @@ const { title, isHomePage } = Astro.props
   <body class="overflow-x-hidden overflow-y-scroll font-sans">
     <Header />
 
-    <slot />
+    <div class="mt-[80px]">
+      <slot />
+    </div>
 
     <Footer />
   </body>
