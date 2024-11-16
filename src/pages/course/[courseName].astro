@@ -1,5 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro'
+import PreviewCourseVideo from '@/sections/PreviewCourseVideo.astro'
 import type { Course } from '@/types/Course'
 
 const { courseName } = Astro.params
@@ -14,21 +15,15 @@ const { title, description, teacherName, price, durationHours } = course
 ---
 
 <Layout title={`Course - ${courseName?.replace(/-/g, ' ')}`}>
-  <main class="mx-auto grid max-w-7xl gap-6 pt-28 lg:grid-cols-[1fr_330px]">
+  <main
+    class="mx-auto grid max-w-7xl gap-6 px-2 pt-28 lg:grid-cols-[1fr_330px]"
+  >
     <div class="col-[1/2] row-[1/2] flex px-4 lg:col-[1/3]">
       <a href="/" class="transition-colors hover:underline">Inicio</a>
     </div>
 
-    <div class="relative col-[1/2] row-[2/3] px-4">
-      <img
-        class="aspect-video rounded-[16px]"
-        width="1920"
-        height="1080"
-        src="/img/courses/ultimas-novedades-javascript.webp"
-        alt={`video presentaion course ${courseName}`}
-        style={`view-transition-name: course-${courseName}`}
-      />
-    </div>
+    <!-- <div class="relative col-[1/2] row-[2/3] px-4"> -->
+    <PreviewCourseVideo />
 
     <div class="col-[1/2] row-[3/4] px-4">
       <h1 class="text-2xl font-bold sm:text-3xl md:text-4xl">{title}</h1>
@@ -57,6 +52,50 @@ const { title, description, teacherName, price, durationHours } = course
         <div class="flex flex-wrap items-center gap-2 text-sm">
           <span>{durationHours}</span>
         </div>
+        <ul class="flex flex-col gap-y-4">
+          <li class="broder rounded-xl border-[#bdcbdf] bg-[#8892a0]">
+            <div
+              class="grid grid-rows-[min-content_0fr] transition-[grid-template-rows] has-[input:checked]:grid-rows-[min-content_1fr]"
+            >
+              <label
+                for="content1"
+                class="relative flex cursor-pointer select-none p-4"
+              >
+                <input
+                  checked
+                  id="content1"
+                  type="checkbox"
+                  class="peer hidden"
+                />
+                <div class="flex flex-grow gap-2.5">
+                  <div>
+                    <h3 class="text-sm text-[#0097ff]">Capitulo 1</h3>
+                    <p class="text-white">Nuevos metodos para colecciones</p>
+                  </div>
+                </div>
+              </label>
+              <div class="bg-box overflow-hidden rounded-xl">
+                <ul class="py-2">
+                  <li>
+                    <a
+                      href="/curso/aprende-lo-ultimo-de-javascript/00-nuevos-metodos-para-colecciones/00-introduccion"
+                      class="hover:bg-brand-gray/10 relative flex w-full items-center justify-between gap-4 overflow-hidden px-4 py-2 text-sm text-white transition"
+                    >
+                      <p class="flex flex-grow items-center gap-1">
+                        Introducción al curso
+                      </p>
+                      <span
+                        class="text-brand-blue block min-w-[52px] text-right"
+                      >
+                        18s
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
 
@@ -97,3 +136,14 @@ const { title, description, teacherName, price, durationHours } = course
     </div>
   </main>
 </Layout>
+
+<script>
+  import { $isPreviewPlay } from '@/stores/videoStore'
+
+  const playButton = document.querySelector('.lty-play-button')
+  if (playButton) {
+    playButton.addEventListener('click', () => {
+      $isPreviewPlay.set(!$isPreviewPlay.get())
+    })
+  }
+</script>

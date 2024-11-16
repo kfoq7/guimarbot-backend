@@ -1,5 +1,5 @@
 ---
-import MenuDrop from './ui/MenuDrop'
+import MenuDrop from './ui/MenuDropDeprecreated'
 import UserProfile from './UserProfile'
 
 const links = [
@@ -25,9 +25,6 @@ const links = [
 <header
   id="main-header"
   class:list={[
-    // { 'is-home-page text-white backdrop-blur-sm': isHomePage },
-    // { 'bg-white text-gray-900': !isHomePage },
-    // 'header-animate z-[9999] w-full overflow-visible py-2 md:backdrop-blur-0'
     'header-animate z-[99999] mb-10 w-full overflow-x-hidden bg-white py-2'
   ]}
 >
@@ -48,7 +45,40 @@ const links = [
         {
           links.map(({ to, name }) => {
             if (!to.includes('#')) {
-              return <MenuDrop label={name} items={[]} client:load />
+              // return <MenuDrop label={name} items={[]} client:load />
+              return (
+                <div class="grid grid-rows-[min-content_0fr] transition-[grid-template-rows] has-[input:checked]:grid-rows-[min-content_1fr]">
+                  <label
+                    for="comunity-menu"
+                    class="relative flex cursor-pointer select-none p-4"
+                  >
+                    <input
+                      checked
+                      id="comunity-menu"
+                      type="checkbox"
+                      class="peer hidden"
+                    />
+                    <div class="">{name}</div>
+                  </label>
+                  <div class="bg-box overflow-hidden rounded-xl">
+                    <ul class="py-2">
+                      <li>
+                        <a
+                          href="/curso/aprende-lo-ultimo-de-javascript/00-nuevos-metodos-para-colecciones/00-introduccion"
+                          class="hover:bg-brand-gray/10 relative flex w-full items-center justify-between gap-4 overflow-hidden px-4 py-2 text-sm text-white transition"
+                        >
+                          <p class="flex flex-grow items-center gap-1">
+                            Introducción al curso
+                          </p>
+                          <span class="text-brand-blue block min-w-[52px] text-right">
+                            18s
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              )
             }
 
             return (
@@ -70,12 +100,6 @@ const links = [
       class="mr-4 flex items-center justify-end gap-4 md:flex-grow md:basis-0"
     >
       <UserProfile client:only="react" />
-      <!-- <a
-        href="/auth/login"
-        class="flex items-center justify-center rounded-md border border-none px-4 py-2.5 text-lg leading-none transition-transform duration-300 hover:scale-105"
-      >
-        Aprende ahora
-      </a> -->
     </div>
   </div>
 </header>

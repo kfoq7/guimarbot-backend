@@ -18,6 +18,7 @@ const plans = data.data as Plan[]
   </p>
 
   <div
+    id="plans"
     class="mt-14 flex flex-col items-center justify-center gap-x-5 gap-y-4 md:flex-row"
   >
     {plans.map(plan => <EnrolleCard plan={plan} />)}

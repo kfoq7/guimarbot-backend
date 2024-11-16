@@ -18,17 +18,18 @@ export default {
         'primary-dark': '#273b59'
          */
         child: {
-          primary: '#FFB6C1',  // Colores suaves para niños
-          background: '#FFF0F5',
+          primary: '#FFB6C1', // Colores suaves para niños
+          background: '#FFF0F5'
         },
         teen: {
-          primary: '#ADD8E6',  // Colores frescos para adolescentes
-          background: '#F0F8FF',
+          primary: '#ADD8E6', // Colores frescos para adolescentes
+          background: '#F0F8FF'
         },
         adult: {
-          primary: '#4682B4',  // Colores más formales para adultos
-          background: '#E6E6FA',
+          primary: '#4682B4', // Colores más formales para adultos
+          background: '#E6E6FA'
         },
+        box: '#0b1422'
       }
     },
     fontFamily: {
