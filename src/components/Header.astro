@@ -45,7 +45,14 @@ const links = [
         {
           links.map(({ to, name }) => {
             if (!to.includes('#')) {
-              return <MenuDrop label={name} items={['Works']} />
+              return (
+                <li>
+                  <MenuDrop
+                    label={name}
+                    items={[{ name: 'Works', href: '/works' }]}
+                  />
+                </li>
+              )
             }
 
             return (

@@ -1,13 +1,15 @@
 ---
+import { timerDelta } from 'three/webgpu'
+
 export interface Props {
   label: string
-  items: string[]
+  items: { href: string; name: string }[]
 }
 
 const { label, items } = Astro.props
 ---
 
-<li
+<div
   class="group relative flex w-full justify-center first:mt-5 md:block md:w-auto md:first:mt-0"
 >
   <label for="comunity-menu" class="flex cursor-pointer select-none p-4">
@@ -23,14 +25,14 @@ const { label, items } = Astro.props
         items.map(item => (
           <li>
             <a
-              href="/curso/aprende-lo-ultimo-de-javascript/00-nuevos-metodos-para-colecciones/00-introduccion"
+              href={item.href}
               class="hover:bg-brand-gray/10 flex w-full items-center justify-between px-4 py-2 text-sm text-white transition"
             >
-              {item}
+              {item.name}
             </a>
           </li>
         ))
       }
     </ul>
   </div>
-</li>
+</div>
