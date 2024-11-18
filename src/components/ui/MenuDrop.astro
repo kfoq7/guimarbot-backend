@@ -1,36 +1,36 @@
 ---
 export interface Props {
-  title: string
+  label: string
+  items: string[]
 }
 
-const {} = Astro.props
+const { label, items } = Astro.props
 ---
 
-<div
-  class="grid grid-rows-[min-content_0fr] transition-[grid-template-rows] has-[input:checked]:grid-rows-[min-content_1fr]"
+<li
+  class="group relative flex w-full justify-center first:mt-5 md:block md:w-auto md:first:mt-0"
 >
-  <label for="content1" class="relative flex cursor-pointer select-none p-4">
-    <input checked id="content1" type="checkbox" class="peer hidden" />
-    <div class="flex flex-grow gap-2.5">
-      <div>
-        <h3 class="text-sm text-[#0097ff]">Capitulo 1</h3>
-        <p class="text-white">Nuevos metodos para colecciones</p>
-      </div>
-    </div>
+  <label for="comunity-menu" class="flex cursor-pointer select-none p-4">
+    <input id="comunity-menu" type="checkbox" class="peer hidden" />
+    <div>{label}</div>
   </label>
-  <div class="bg-box overflow-hidden rounded-xl">
+
+  <div
+    class="absolute -left-12 top-12 z-[9999999] hidden w-64 rounded-xl bg-box shadow-lg group-has-[input:checked]:block"
+  >
     <ul class="py-2">
-      <li>
-        <a
-          href="/curso/aprende-lo-ultimo-de-javascript/00-nuevos-metodos-para-colecciones/00-introduccion"
-          class="hover:bg-brand-gray/10 relative flex w-full items-center justify-between gap-4 overflow-hidden px-4 py-2 text-sm text-white transition"
-        >
-          <p class="flex flex-grow items-center gap-1">Introducción al curso</p>
-          <span class="text-brand-blue block min-w-[52px] text-right">
-            18s
-          </span>
-        </a>
-      </li>
+      {
+        items.map(item => (
+          <li>
+            <a
+              href="/curso/aprende-lo-ultimo-de-javascript/00-nuevos-metodos-para-colecciones/00-introduccion"
+              class="hover:bg-brand-gray/10 flex w-full items-center justify-between px-4 py-2 text-sm text-white transition"
+            >
+              {item}
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </div>
-</div>
+</li>
