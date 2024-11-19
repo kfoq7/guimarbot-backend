@@ -5,12 +5,11 @@ import type { Course } from '@/types/Course'
 
 const { courseName } = Astro.params
 const response = await fetch(
-  `${import.meta.env.API_URL}/course/find-by-title/${courseName}`
+  `${import.meta.env.API_URL}/course/find-by-title?title=${courseName}`
 )
 const course = (await response.json()) as Course
 
-const { title, description, teacherName, price, durationHours } = course
-
+const { id, title, description, teacherName, price, durationHours } = course
 // src="https://www.shutterstock.com/image-photo/elearning-education-internet-lessons-online-600nw-2158034833.jpg"
 ---
 
@@ -53,7 +52,7 @@ const { title, description, teacherName, price, durationHours } = course
           <span>{durationHours}</span>
         </div>
         <ul class="flex flex-col gap-y-4">
-          <li class="broder rounded-xl border-[#bdcbdf] bg-[#8892a0]">
+          <li class="rounded-xl border border-[#bdcbdf] bg-[#8892a0]">
             <div
               class="grid grid-rows-[min-content_0fr] transition-[grid-template-rows] has-[input:checked]:grid-rows-[min-content_1fr]"
             >
@@ -74,7 +73,7 @@ const { title, description, teacherName, price, durationHours } = course
                   </div>
                 </div>
               </label>
-              <div class="bg-box overflow-hidden rounded-xl">
+              <div class="overflow-hidden rounded-xl bg-box">
                 <ul class="py-2">
                   <li>
                     <a
@@ -115,9 +114,11 @@ const { title, description, teacherName, price, durationHours } = course
         <span>Price: {price}$</span>
 
         <button
+          id="buy-btn"
+          data-course-id={id}
           class="w-full rounded-md border border-gray-200/90 bg-blue-500 px-4 py-2.5 text-white transition-transform duration-300 hover:scale-105"
         >
-          Comprar
+          Agregar a carrito
         </button>
       </section>
       <section class="mt-8 flex flex-col gap-4">
@@ -137,13 +138,27 @@ const { title, description, teacherName, price, durationHours } = course
   </main>
 </Layout>
 
-<script>
+<!-- <script>
   import { $isPreviewPlay } from '@/stores/videoStore'
 
   const playButton = document.querySelector('.lty-play-button')
   if (playButton) {
     playButton.addEventListener('click', () => {
       $isPreviewPlay.set(!$isPreviewPlay.get())
+    })
+  }
+</script> -->
+
+<script>
+  import { $ } from '@/lib/dom-selector'
+  import { addCourseToCart } from '@/stores/cartStore'
+
+  const buyBtn = $('#buy-btn')
+  if (buyBtn) {
+    buyBtn.addEventListener('click', () => {
+      const courseId = Number(buyBtn.dataset.courseId) || 0
+      if (courseId === 0) return
+      addCourseToCart(courseId)
     })
   }
 </script>
