@@ -1,9 +1,9 @@
 export interface Payment {
-    userId: number
-    paymentMethod: string
-    PaymentDetail: PaymentDetail[]
+  userId: number
+  paymentMethod: string
+  paymentDetail: PaymentDetail[]
 }
 
 export interface PaymentDetail {
-    courseId: number
+  courseId: number
 }

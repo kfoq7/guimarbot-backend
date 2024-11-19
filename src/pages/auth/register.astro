@@ -147,6 +147,7 @@
         )
 
         if (response.ok) {
+          window.location.href = '/'
           alert('Usuario registrado con éxito')
         } else {
           const errorData = await response.json()
