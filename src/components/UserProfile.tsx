@@ -4,7 +4,7 @@ export default function UserProfile() {
   const [accessToken, setAccessToken] = useState<string | null>(null)
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('user')
 
     setAccessToken(token)
   }, [])

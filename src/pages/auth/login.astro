@@ -230,8 +230,8 @@ import LoginForm from '@/sections/LoginForm.astro'
         // const data = await response.json()
         if (response.ok) {
           const data = (await response.json()) as AuthResponse
-          const accessToken = data.accessToken
-          localStorage.setItem('token', accessToken)
+          // const accessToken = data
+          localStorage.setItem('user', JSON.stringify(data))
           window.location.href = '/'
         } else {
           remainingAttempts--

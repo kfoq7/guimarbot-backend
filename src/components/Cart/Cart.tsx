@@ -9,11 +9,11 @@ import { paymentStore } from '@/stores/cartStore'
 import type { Course } from '@/types/Course'
 
 export default function Cart() {
-  const { paymentDetail } = useStore(paymentStore)
+  const { paymentDetails } = useStore(paymentStore)
 
   const uniqueCourseIds = useMemo(() => {
-    return Array.from(new Set(paymentDetail.map(item => item.courseId)))
-  }, [paymentDetail])
+    return Array.from(new Set(paymentDetails.map(item => item.courseId)))
+  }, [paymentDetails])
 
   const coursesQueries = useQueries(
     {
@@ -67,7 +67,7 @@ export default function Cart() {
               {courses.map(
                 course =>
                   course && (
-                    <CartItem key={course.id} course={course} quantity={2} />
+                    <CartItem key={course.id} course={course} quantity={1} />
                   )
               )}
             </div>
@@ -78,7 +78,7 @@ export default function Cart() {
           subtotal={subtotal}
           tax={tax}
           total={total}
-          itemCount={paymentDetail.length}
+          itemCount={paymentDetails.length}
         />
       </div>
     </section>

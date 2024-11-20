@@ -1,3 +1,8 @@
+import { paymentStore } from '@/stores/cartStore'
+import { queryClient } from '@/stores/react-query'
+import type { Payment } from '@/types/Payment'
+import { useMutation } from '@tanstack/react-query'
+
 interface Props {
   subtotal: number
   tax: number
@@ -11,6 +16,38 @@ export default function CartSummary({
   total,
   itemCount
 }: Props) {
+  const payment = paymentStore.get()
+
+  const { mutate } = useMutation(
+    {
+      mutationFn: async (paymentData: Payment) => {
+        const response = await fetch(
+          `${import.meta.env.PUBLIC_API_URL}/payment`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(paymentData)
+          }
+        )
+        const data = (await response.json()) as Payment
+        return data
+      }
+    },
+    queryClient
+  )
+
+  const handleOnClick = () => {
+    const { accessToken } = JSON.parse(localStorage.getItem('user') ?? '{}')
+    if (!accessToken) {
+      window.location.href = '/auth/login'
+      return
+    }
+
+    mutate(payment)
+  }
+
   return (
     <div className="w-96 flex-none rounded-xl border border-gray-200 bg-white p-6">
       <h2 className="text-2xl font-bold">Resumen de compra</h2>
@@ -32,6 +69,7 @@ export default function CartSummary({
           <p>{itemCount}</p>
         </div>
         <button
+          onClick={handleOnClick}
           className="mt-6 flex w-full cursor-pointer items-center justify-center gap-4 rounded-lg bg-blue-500 py-3 font-bold text-white hover:bg-blue-400"
           disabled={itemCount === 0}
         >
