@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import MenuDrop from './ui/MenuDrop'
 
 export default function UserProfile() {
   const [accessToken, setAccessToken] = useState<string | null>(null)
@@ -20,7 +21,7 @@ export default function UserProfile() {
         </a>
       ) : (
         <div className="mr-4 flex items-center justify-end gap-4 md:flex-grow md:basis-0">
-          Logged
+          <MenuDrop items={[{ href: '/', name: 'home' }]} label="Ver perfil" />
         </div>
       )}
     </>
