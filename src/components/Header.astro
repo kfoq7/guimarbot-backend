@@ -1,5 +1,5 @@
 ---
-import MenuDrop from './ui/MenuDrop.astro'
+import MenuDrop from './ui/MenuDrop'
 import UserProfile from './UserProfile'
 
 const links = [
@@ -48,7 +48,8 @@ const links = [
               return (
                 <li>
                   <MenuDrop
-                    label={name}
+                    client:only="react"
+                    label="Ver"
                     items={[{ name: 'Works', href: '/works' }]}
                   />
                 </li>

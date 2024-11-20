@@ -3,8 +3,8 @@ import type { Payment } from '@/types/Payment'
 
 const initialPayment: Payment = {
   userId: 0,
-  paymentMethod: '',
-  paymentDetail: []
+  paymentMethodId: 1,
+  paymentDetails: []
 }
 
 export const paymentStore = persistentAtom<Payment>(
@@ -24,7 +24,8 @@ export const addCourseToCart = (courseId: number) => {
   const currentPayment = paymentStore.get()
   paymentStore.set({
     ...currentPayment,
-    paymentDetail: [...currentPayment.paymentDetail, { courseId }]
+    userId: JSON.parse(localStorage.getItem('user') ?? '{}').userId,
+    paymentDetails: [...currentPayment.paymentDetails, { courseId }]
   })
 }
 
@@ -32,8 +33,15 @@ export const removeCourseFromCart = (courseId: number) => {
   const currentPayment = paymentStore.get()
   paymentStore.set({
     ...currentPayment,
-    paymentDetail: currentPayment.paymentDetail.filter(
+    paymentDetails: currentPayment.paymentDetails.filter(
       item => item.courseId !== courseId
     )
+  })
+}
+
+export const setUser = (userId: number) => {
+  paymentStore.set({
+    ...paymentStore.get(),
+    userId
   })
 }
