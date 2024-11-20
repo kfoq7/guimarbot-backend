@@ -1,11 +1,6 @@
-export interface ContentPlan {
-  description: string
-  active: boolean
-}
-
-export interface Plan {
-  id: number
-  name: string
+export interface EnrolleCardProps {
+  title: string
+  capacity: number
   price: number
-  content: ContentPlan[]
+  emphasized: boolean
 }

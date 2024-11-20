@@ -1,11 +1,29 @@
 ---
-import EnrolleCard from '@/components/EnrolleCard.astro'
+import { EnrolleCard } from '@/components/Enrolle'
 import Section from '@/components/ui/Section.astro'
-import type { Plan } from '@/types/Plan'
 
 const response = await fetch('http://localhost:4321/api/plans')
 const data = await response.json()
-const plans = data.data as Plan[]
+const plans = [
+  {
+    title: 'Plan Básico',
+    capacity: 100,
+    price: 50,
+    emphasis: 'low',
+  },
+  {
+    title: 'Plan Estándar',
+    capacity: 200,
+    price: 100,
+    emphasis: 'medium',
+  },
+  {
+    title: 'Plan Premium',
+    capacity: 300,
+    price: 150,
+    emphasis: 'high',
+  }
+]
 ---
 
 <Section>
@@ -20,6 +38,6 @@ const plans = data.data as Plan[]
   <div
     class="mt-14 flex flex-col items-center justify-center gap-x-5 gap-y-4 md:flex-row"
   >
-    {plans.map(plan => <EnrolleCard plan={plan} />)}
+    {plans.map(plan => <EnrolleCard {...plan} />)}
   </div>
 </Section>
