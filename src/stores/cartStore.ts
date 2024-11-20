@@ -2,7 +2,7 @@ import { persistentAtom } from '@nanostores/persistent'
 import type { Payment } from '@/types/Payment'
 
 const initialPayment: Payment = {
-  userId: JSON.parse(localStorage.getItem('user') ?? '{}')?.userId,
+  userId: 0,
   paymentMethodId: 1,
   paymentDetails: []
 }
@@ -36,5 +36,12 @@ export const removeCourseFromCart = (courseId: number) => {
     paymentDetails: currentPayment.paymentDetails.filter(
       item => item.courseId !== courseId
     )
+  })
+}
+
+export const setUser = (userId: number) => {
+  paymentStore.set({
+    ...paymentStore.get(),
+    userId
   })
 }

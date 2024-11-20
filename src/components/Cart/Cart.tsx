@@ -11,7 +11,7 @@ import type { Course } from '@/types/Course'
 export default function Cart() {
   const { paymentDetails } = useStore(paymentStore)
 
-  const uniqueCourseIds = useMemo(() => {
+   const uniqueCourseIds = useMemo(() => {
     return Array.from(new Set(paymentDetails.map(item => item.courseId)))
   }, [paymentDetails])
 
