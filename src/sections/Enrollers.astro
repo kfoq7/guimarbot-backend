@@ -1,11 +1,26 @@
 ---
-import EnrolleCard from '@/components/EnrolleCard.astro'
+import { EnrolleCard } from '@/components/Enrolle'
 import Section from '@/components/ui/Section.astro'
 import type { Plan } from '@/types/Plan'
 
-const response = await fetch('http://localhost:4321/api/plans')
-const data = await response.json()
-const plans = data.data as Plan[]
+const response = await fetch(`${import.meta.env.PUBLIC_API_URL}/plan`)
+const rawData = await response.json()
+
+const data: Plan[] = rawData.map((item: any) => ({
+  ...item,
+  price: parseFloat(item.price),
+  emphasis: getEmphasis(item)
+}))
+
+function getEmphasis(plan: any): 'low' | 'medium' | 'high' {
+  return plan.price < 50
+    ? 'low'
+    : plan.price < 100
+      ? 'medium'
+      : plan.price >= 150
+        ? 'high'
+        : 'low'
+}
 ---
 
 <Section>
@@ -21,6 +36,16 @@ const plans = data.data as Plan[]
     id="plans"
     class="mt-14 flex flex-col items-center justify-center gap-x-5 gap-y-4 md:flex-row"
   >
-    {plans.map(plan => <EnrolleCard plan={plan} />)}
+    {
+      data.map(plan => (
+        <EnrolleCard
+          name={plan.name}
+          price={plan.price}
+          maxUsers={plan.maxUsers}
+          description={plan.description}
+          emphasis={plan.emphasis}
+        />
+      ))
+    }
   </div>
 </Section>

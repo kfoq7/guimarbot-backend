@@ -1,13 +1,13 @@
 ---
-import type { Plan } from '@/types/Plan'
+import type { EnrolleCardProps } from '@/types/Plan'
 
 export interface Props {
-  plan: Plan
+  plan: EnrolleCardProps
 }
 
 const { plan } = Astro.props
 
-const { name, content, price } = plan
+const { title, capacity, price, emphasized } = plan
 ---
 
 <div
@@ -17,7 +17,7 @@ const { name, content, price } = plan
   <div class="flex justify-start">
     <div class="flex w-full items-center justify-between">
       <h1 class="text-left text-xl font-bold text-midnight-navy md:text-2xl">
-        {name}
+        {title}
       </h1>
 
       <div class="text-gray-800/80">
@@ -38,11 +38,7 @@ const { name, content, price } = plan
   <ul
     class="my-4 flex flex-col justify-normal gap-y-3 text-gray-800/30 md:flex-grow"
   >
-    {
-      content.map(({ description, active }) => (
-        <ol class:list={['', { 'text-black/80': active }]}>{description}</ol>
-      ))
-    }
+  
   </ul>
 
   <div class="mt-4 flex w-full justify-end">
