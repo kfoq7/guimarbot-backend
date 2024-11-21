@@ -1,0 +1,92 @@
+---
+import { transformTitleParam } from '@/utils'
+import type { Course } from '@/types/Course'
+import Layout from '@/layouts/Layout.astro'
+import Road from '@/components/roadmap.astro'
+import { RoadMapCard } from '@/components/roadmapCard'
+
+const presetPaths = [
+  {
+    title: 'Desarrollo Web Full Stack',
+    description: 'Aprende a crear aplicaciones web completas',
+    topics: [
+      'HTML',
+      'CSS',
+      'JavaScript',
+      'React',
+      'Node.js',
+      'Express',
+      'MongoDB'
+    ],
+    duration: '6 meses'
+  },
+  {
+    title: 'Ciencia de Datos',
+    description: 'Domina el análisis y la visualización de datos',
+    topics: [
+      'Python',
+      'Pandas',
+      'NumPy',
+      'Matplotlib',
+      'Machine Learning',
+      'SQL'
+    ],
+    duration: '8 meses'
+  },
+  {
+    title: 'Desarrollo de Aplicaciones Móviles',
+    description: 'Crea apps para iOS y Android',
+    topics: ['Swift', 'Kotlin', 'React Native', 'Flutter'],
+    duration: '5 meses'
+  }
+]
+---
+
+<Layout title="RoadMap">
+  <div class="container mx-auto p-8">
+    <h1 class="mb-8 text-center text-3xl font-bold">
+      Rutas de Aprendizaje en Tecnología
+    </h1>
+
+    <section class="mb-12">
+      <h2 class="mb-4 text-2xl font-semibold">Rutas Preestablecidas</h2>
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {
+          presetPaths.map((path, index) => (
+            <RoadMapCard key={index} {...path} />
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="mb-4 text-2xl font-semibold">Crea tu Propia Ruta</h2>
+
+      <div class="border border-gray-200 p-6">
+        <div class="mb-4">
+          <h3 class="text-xl font-medium">
+            Crea tu propia ruta de aprendizaje
+          </h3>
+          <p class="text-gray-400">
+            Personaliza tu camino de aprendizaje en cualquier área
+          </p>
+        </div>
+
+        <div class="mb-4 flex items-center">
+          <input
+            type="text"
+            placeholder="Añade un tema"
+            class="flex-grow rounded-md border border-gray-300 p-2"
+          />
+          <button class="ml-2 rounded-md bg-blue-500 p-2 text-white"
+            ><a href="/course">Añadir</a></button
+          >
+        </div>
+
+        <button class="w-full rounded-md bg-blue-500 p-2 text-white"
+          >Generar ruta de aprendizaje</button
+        >
+      </div>
+    </section>
+  </div>
+</Layout>
