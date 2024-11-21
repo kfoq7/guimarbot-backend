@@ -1,10 +1,10 @@
 ---
-import Layout from '@/layouts/Layout.astro'
+import Section from '@/components/ui/Section.astro'
 import CartMain from '@/components/Cart/Cart'
 ---
 
-<Layout title="Cart">
+<Section className="mt-0">
   <div class="flex h-screen flex-col">
     <CartMain client:idle />
   </div>
-</Layout>
+</Section>

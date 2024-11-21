@@ -192,12 +192,12 @@ import LoginForm from '@/sections/LoginForm.astro'
 
 <script>
   import type { AuthResponse } from '@/types/Response'
+  import { setUser } from '@/stores/cartStore'
 
   const loginForm = document.getElementById('loginForm')
   const loginModal = document.getElementById('loginModal')
   // const remainingAttemptsEl = document.getElementById('remainingAttempts')
   const closeModalButton = document.getElementById('closeModal')
-
   if (closeModalButton && loginModal && loginForm) {
     let remainingAttempts = 3
 
@@ -230,8 +230,7 @@ import LoginForm from '@/sections/LoginForm.astro'
         // const data = await response.json()
         if (response.ok) {
           const data = (await response.json()) as AuthResponse
-          const accessToken = data.accessToken
-          localStorage.setItem('token', accessToken)
+          setUser(parseJwt(data.accessToken).userId)
           window.location.href = '/'
         } else {
           remainingAttempts--
@@ -252,5 +251,11 @@ import LoginForm from '@/sections/LoginForm.astro'
         console.error(error)
       }
     })
+  }
+
+  function parseJwt(token: string) {
+    var base64Url = token.split('.')[1]
+    var base64 = base64Url.replace('-', '+').replace('_', '/')
+    return JSON.parse(window.atob(base64))
   }
 </script>

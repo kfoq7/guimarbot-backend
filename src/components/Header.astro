@@ -25,10 +25,7 @@ const links = [
 <header
   id="main-header"
   class:list={[
-    // { 'is-home-page text-white backdrop-blur-sm': isHomePage },
-    // { 'bg-white text-gray-900': !isHomePage },
-    // 'header-animate z-[9999] w-full overflow-visible py-2 md:backdrop-blur-0'
-    'header-animate z-[99999] mb-10 w-full overflow-x-hidden bg-white py-2'
+    'header-animate z-[9999] w-full overflow-x-hidden bg-white py-2 md:overflow-x-visible'
   ]}
 >
   <div
@@ -40,15 +37,23 @@ const links = [
       </a>
     </div>
     <nav
-      class="col-span-full row-[2/3] grid grid-rows-[0fr] overflow-x-auto md:flex md:justify-center"
+      class="col-span-full row-[2/3] grid grid-rows-[0fr] md:flex md:justify-center"
     >
       <ul
-        class="flex flex-col items-center justify-center gap-x-8 overflow-x-hidden overflow-y-hidden md:flex-row"
+        class="flex flex-col items-center justify-center gap-x-8 overflow-hidden md:flex-row md:overflow-visible"
       >
         {
           links.map(({ to, name }) => {
             if (!to.includes('#')) {
-              return <MenuDrop label={name} items={[]} client:load />
+              return (
+                <li>
+                  <MenuDrop
+                    client:only="react"
+                    label="Ver"
+                    items={[{ name: 'Works', href: '/works' }]}
+                  />
+                </li>
+              )
             }
 
             return (
@@ -70,12 +75,6 @@ const links = [
       class="mr-4 flex items-center justify-end gap-4 md:flex-grow md:basis-0"
     >
       <UserProfile client:only="react" />
-      <!-- <a
-        href="/auth/login"
-        class="flex items-center justify-center rounded-md border border-none px-4 py-2.5 text-lg leading-none transition-transform duration-300 hover:scale-105"
-      >
-        Aprende ahora
-      </a> -->
     </div>
   </div>
 </header>

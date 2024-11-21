@@ -1,0 +1,22 @@
+---
+import LiteYoutube from '@/components/LiteYoutube.astro'
+import Layout from '@/layouts/Layout.astro'
+---
+
+<Layout title="Video Static">
+  <main class="grid pt-14 lg:grid-cols-1 xl:grid-cols-[1fr_475px]">
+    <section class="col-[1/2] row-[2/3] overflow-y-auto overflow-x-hidden">
+      <div class="relative mt-8 px-4">
+        <LiteYoutube videoId="j4b73_D4-5Q" />
+      </div>
+    </section>
+
+    <section class="col-[1/2] row-[3/4] mt-10 px-4">
+      <h1 class="text-pretty text-5xl font-bold">Content Type</h1>
+    </section>
+
+    <section class="col-[1/2] row-[4/5] mt-10 px-4 lg:col-[2/3] lg:row-[2/6]">
+      <h1 class="text-pretty text-5xl font-bold">Content Type</h1>
+    </section>
+  </main>
+</Layout>

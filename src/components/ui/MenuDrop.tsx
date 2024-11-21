@@ -1,56 +1,39 @@
-import { useState } from 'react'
-
-interface Item {
-  href: string
-  label: string
-}
-
 interface Props {
   label: string
-  items: Item[]
+  items: { href: string; name: string }[]
 }
 
-export default function MenuDrop({ label }: Props) {
-  const [isOpen, setIsOpen] = useState(false)
+export default function MenuDrop({ label, items }: Props) {
+  const groupName = label.toLowerCase().replace(/\s/g, '-')
 
   return (
-    <div className="w-full">
-      <button
-        className="flex gap-x-2 px-2 py-2"
-        onClick={() => setIsOpen(!isOpen)}
+    <div
+      className={`group/${groupName} relative flex w-full justify-center first:mt-5 md:block md:w-auto md:first:mt-0`}
+    >
+      <label
+        htmlFor={groupName}
+        className="flex cursor-pointer select-none p-4"
       >
-        {label}
-        <svg
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="size-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="m19.5 8.25-7.5 7.5-7.5-7.5"
-          />
-        </svg>
-      </button>
+        <input id={groupName} type="checkbox" className={`peer hidden`} />
+        <div>{label}</div>
+      </label>
 
-      {isOpen && (
-        <div className="absolute w-[400px] rounded border-[1px] border-gray-300 bg-white shadow-md">
-          <div className="cursor-pointer p-4 hover:bg-gray-300">
-            Acc settings
-          </div>
-          <div className="cursor-pointer p-4 hover:bg-gray-300">
-            Acc settings
-          </div>
-          <div className="cursor-pointer p-4 hover:bg-gray-300">
-            Acc settings
-          </div>
-          <div className="cursor-pointer p-4 hover:bg-gray-300">
-            Acc settings
-          </div>
-        </div>
-      )}
+      <div
+        className={`absolute -left-12 top-12 z-[9999999] hidden w-64 rounded-xl bg-box shadow-lg group-has-[input:checked]/${groupName}:block`}
+      >
+        <ul className="py-2">
+          {items.map(item => (
+            <li key={item.name}>
+              <a
+                href={item.href}
+                className="hover:bg-brand-gray/10 flex w-full items-center justify-between px-4 py-2 text-sm text-white transition"
+              >
+                {item.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   )
 }

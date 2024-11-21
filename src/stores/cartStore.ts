@@ -2,36 +2,46 @@ import { persistentAtom } from '@nanostores/persistent'
 import type { Payment } from '@/types/Payment'
 
 const initialPayment: Payment = {
-    userId: 0,
-    paymentMethod: '',
-    PaymentDetail: []
+  userId: 0,
+  paymentMethodId: 1,
+  paymentDetails: []
 }
 
 export const paymentStore = persistentAtom<Payment>(
-    'cart-storage',
-    initialPayment,
-    {
-        encode: JSON.stringify,
-        decode: JSON.parse
-    }
+  'cart-storage',
+  initialPayment,
+  {
+    encode: JSON.stringify,
+    decode: JSON.parse
+  }
 )
 
 export const removeCart = () => {
-    paymentStore.set(initialPayment)
+  paymentStore.set(initialPayment)
 }
 
 export const addCourseToCart = (courseId: number) => {
-    const currentPayment = paymentStore.get();
-    paymentStore.set({
-        ...currentPayment,
-        PaymentDetail: [...currentPayment.PaymentDetail, { courseId }]
-    });
+  const currentPayment = paymentStore.get()
+  paymentStore.set({
+    ...currentPayment,
+    userId: JSON.parse(localStorage.getItem('user') ?? '{}').userId,
+    paymentDetails: [...currentPayment.paymentDetails, { courseId }]
+  })
 }
 
 export const removeCourseFromCart = (courseId: number) => {
-    const currentPayment = paymentStore.get();
-    paymentStore.set({
-        ...currentPayment,
-        PaymentDetail: currentPayment.PaymentDetail.filter((item) => item.courseId !== courseId)
-    });
+  const currentPayment = paymentStore.get()
+  paymentStore.set({
+    ...currentPayment,
+    paymentDetails: currentPayment.paymentDetails.filter(
+      item => item.courseId !== courseId
+    )
+  })
+}
+
+export const setUser = (userId: number) => {
+  paymentStore.set({
+    ...paymentStore.get(),
+    userId
+  })
 }
