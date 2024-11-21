@@ -1,0 +1,82 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import type { Course } from '@/types/Course'
+
+const response = await fetch(`${import.meta.env.API_URL}/user/1/courses`)
+const { user, courses } = (await response.json()) as {
+  user: {
+    id: number
+    names: string
+    lastName: string
+    profileImage: string | null
+  }
+  courses: Course[]
+}
+---
+
+<Layout title={`Welcome ${user.names}`}>
+  <section class="bg-gray-50 p-6">
+    <div class="mb-8 flex items-center gap-4">
+      <img
+        src={user.profileImage || '/default-profile.png'}
+        alt={`${user.names} ${user.lastName}`}
+        class="h-24 w-24 rounded-full border-2 border-gray-300 object-cover"
+      />
+      <h1 class="text-2xl font-bold text-gray-800">
+        {user.names}
+        {user.lastName}
+      </h1>
+    </div>
+  </section>
+
+  <section class="p-6">
+    <h2 class="mb-4 text-xl font-semibold text-gray-700">Your Courses</h2>
+    {
+      courses.length > 0 ? (
+        <ul class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {courses.map(course => (
+            <li class="flex flex-col justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-md">
+              <div>
+                <h3 class="text-lg font-bold text-gray-900">{course.title}</h3>
+                <p class="mb-2 text-gray-600">{course.description}</p>
+                <div class="space-y-1 text-sm text-gray-500">
+                  <p>
+                    <span class="font-semibold">Teacher:</span>{' '}
+                    {course.teacherName}
+                  </p>
+                  <p>
+                    <span class="font-semibold">Level:</span> {course.level}
+                  </p>
+                  <p>
+                    <span class="font-semibold">Price:</span> ${course.price}
+                  </p>
+                  <p>
+                    <span class="font-semibold">Duration:</span>{' '}
+                    {course.durationHours} hours
+                  </p>
+                  {/* <p>
+                    <span class="font-semibold">Total Lessons:</span>{' '}
+                    {course.lessons.length}
+                  </p> */}
+                  <p>
+                    <span class="font-semibold">Rating:</span>{' '}
+                    {course.averageRating} ★
+                  </p>
+                </div>
+              </div>
+              <a
+                href={course.videoPreviewUrl}
+                target="_blank"
+                class="mt-4 inline-block rounded-lg bg-blue-500 px-4 py-2 text-center text-white hover:bg-blue-600"
+              >
+                Preview Course
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="text-gray-500">No courses found.</p>
+      )
+    }
+  </section>
+</Layout>

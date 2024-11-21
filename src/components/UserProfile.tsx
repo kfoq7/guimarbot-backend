@@ -5,7 +5,7 @@ export default function UserProfile() {
   const [accessToken, setAccessToken] = useState<string | null>(null)
 
   useEffect(() => {
-    const token = localStorage.getItem('user')
+    const token = localStorage.getItem('token')
 
     setAccessToken(token)
   }, [])
@@ -21,7 +21,19 @@ export default function UserProfile() {
         </a>
       ) : (
         <div className="mr-4 flex items-center justify-end gap-4 md:flex-grow md:basis-0">
-          <MenuDrop items={[{ href: '/', name: 'home' }]} label="Ver perfil" />
+          <MenuDrop
+            items={[
+              {
+                href: '/profile',
+                name: 'Verfil'
+              },
+              {
+                href: '/profile/my-courses',
+                name: 'Mis cursos'
+              }
+            ]}
+            label="Ver perfil"
+          />
         </div>
       )}
     </>

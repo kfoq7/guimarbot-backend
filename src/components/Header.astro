@@ -1,4 +1,5 @@
 ---
+import Logo from './Logo.astro'
 import MenuDrop from './ui/MenuDrop'
 import UserProfile from './UserProfile'
 
@@ -32,8 +33,8 @@ const links = [
     class="mx-auto grid max-w-[1200px] grid-cols-[auto_1fr] items-center justify-center gap-x-10 md:flex md:justify-normal"
   >
     <div class="flex justify-start md:flex-grow md:basis-0">
-      <a href="#" class="ml-6 flex items-center gap-x-1">
-        <img src="/img/guimarbot.webp" alt="Logo" class="size-10" />
+      <a href="/#" class="ml-6 flex items-center gap-x-1">
+        <Logo />
       </a>
     </div>
     <nav
@@ -48,8 +49,7 @@ const links = [
               return (
                 <li>
                   <MenuDrop
-                    client:only="react"
-                    label="Ver"
+                    label="Comuidad"
                     items={[{ name: 'Works', href: '/works' }]}
                   />
                 </li>

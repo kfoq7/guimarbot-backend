@@ -39,8 +39,8 @@ export default function CartSummary({
   )
 
   const handleOnClick = () => {
-    const { accessToken } = JSON.parse(localStorage.getItem('user') ?? '{}')
-    if (!accessToken) {
+    const token = localStorage.getItem('token') ?? ''
+    if (!token) {
       window.location.href = '/auth/login'
       return
     }

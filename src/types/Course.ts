@@ -8,6 +8,13 @@ export interface Tag {
   name: string
 }
 
+export interface Lesson {
+  id: number
+  title: string
+  description: string
+  durationMinutes: number
+}
+
 export interface Course {
   id: number
   title: string
@@ -19,4 +26,5 @@ export interface Course {
   averageRating: number
   category: Category
   tags: Tag[]
+  lessons: Lesson[]
 }
