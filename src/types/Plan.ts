@@ -1,6 +1,8 @@
-export interface EnrolleCardProps {
-  title: string
-  capacity: number
+export interface Plan {
+  id: number
+  name: string
   price: number
-  emphasized: boolean
+  maxUsers: number
+  description: string
+  emphasis: 'low' | 'medium' | 'high'
 }

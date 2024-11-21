@@ -1,14 +1,10 @@
-interface EnrolleCardProps {
-  title: string
-  capacity: number
-  price: number
-  emphasis: 'low' | 'medium' | 'high'
-}
+import type { Plan } from '@/types/Plan'
 
-export const EnrolleCard: React.FC<EnrolleCardProps> = ({
-  title,
-  capacity,
+export const EnrolleCard: React.FC<Plan> = ({
+  name,
   price,
+  maxUsers,
+  description,
   emphasis
 }) => {
   const emphasisStyles = {
@@ -27,19 +23,38 @@ export const EnrolleCard: React.FC<EnrolleCardProps> = ({
   }
 
   return (
-    <div className="w-96 rounded-md border border-gray-300">
-      <div
-        className={`flex items-center justify-between p-6 ${emphasisStyles[emphasis].bg}`}
-      >
-        <h2 className="text-xl font-bold">{title}</h2>
-        <div className={`rounded-full px-2 py-1`}>
-          <p className={`text-sm font-medium ${emphasisStyles[emphasis].text}`}>
-            {capacity} usuarios
-          </p>
+    <div className="h-76 flex w-96 flex-col justify-between rounded-md border border-gray-300">
+      <div className="flex h-full flex-col justify-between">
+        <div>
+          <div className="flex items-center justify-between p-6 pb-3">
+            <h2 className="text-xl font-bold">{name}</h2>
+            <div
+              className={`rounded-full px-2 py-1 ${emphasisStyles[emphasis].bg} hover:bg-opacity-90`}
+            >
+              <p
+                className={`text-sm font-medium ${emphasisStyles[emphasis].text}`}
+              >
+                {maxUsers} personas
+              </p>
+            </div>
+          </div>
+
+          <div className="px-6 py-4">
+            <p className="break-words text-gray-500">{description}</p>
+          </div>
+        </div>
+
+        <div className="p-6 pt-3">
+          <p>Capacidad: {maxUsers} usuarios</p>
+          <p>Precio: ${price}</p>
         </div>
       </div>
-      <p>Capacity: {capacity}</p>
-      <p>Price: {price}</p>
+
+      <button
+        className={`w-full rounded-b-md ${emphasisStyles[emphasis].bg} ${emphasisStyles[emphasis].text} py-4 hover:bg-opacity-90`}
+      >
+        Ver detalles
+      </button>
     </div>
   )
 }
