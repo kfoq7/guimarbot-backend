@@ -8,7 +8,7 @@ export default function UserProfile() {
     const token = localStorage.getItem('token')
 
     setAccessToken(token)
-  }, [])
+  }, [accessToken])
 
   return (
     <>
@@ -32,9 +32,9 @@ export default function UserProfile() {
                 name: 'Mis cursos'
               },
               {
-                // href: '/api/'.
-                href: '',
-                name: 'Cerrar sesión'
+                href: window.location.href,
+                name: 'Cerrar sesión',
+                func: () => localStorage.removeItem('token')
               }
             ]}
             label="Ver perfil"

@@ -1,6 +1,6 @@
 interface Props {
   label: string
-  items: { href: string; name: string }[]
+  items: { href: string; name: string; func?: () => void }[]
 }
 
 export default function MenuDrop({ label, items }: Props) {
@@ -18,12 +18,10 @@ export default function MenuDrop({ label, items }: Props) {
         <div>{label}</div>
       </label>
 
-      <div
-        className={`absolute -left-12 top-12 z-[9999] hidden w-64 rounded-xl bg-box shadow-lg group-has-[input:checked]:block`}
-      >
+      <div className="absolute -left-12 top-12 z-[9999] hidden w-64 rounded-xl bg-box shadow-lg group-has-[input:checked]:block">
         <ul className="py-2">
-          {items.map(({ name, href }) => (
-            <li key={name}>
+          {items.map(({ name, href, func }) => (
+            <li key={name} onClick={() => func && func()}>
               <a
                 href={href}
                 className="hover:bg-brand-gray/10 flex w-full items-center justify-between px-4 py-2 text-sm text-white transition"
