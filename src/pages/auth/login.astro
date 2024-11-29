@@ -232,7 +232,6 @@ import LoginForm from '@/sections/LoginForm.astro'
         // const data = await response.json()
         if (response.ok) {
           const data = (await response.json()) as AuthResponse
-          console.log(data)
           const userId = parseJwt(data.accessToken).userId
           setUser(userId)
           authStore.set(data.accessToken)

@@ -2,8 +2,6 @@
 import Layout from '@/layouts/Layout.astro'
 import PreviewCourseVideo from '@/sections/PreviewCourseVideo.astro'
 import CourseActionsButton from '@/components/Course/CourseActionsButton'
-import { authStore } from '@/stores/authStore'
-import { $courseFilters } from '@/stores/courseFiltersStore'
 import type { Course } from '@/types/Course'
 
 const { courseName } = Astro.params
@@ -117,7 +115,7 @@ const { id, title, description, teacherName, price, durationHours, lessons } =
         </ul>
         <span>Price: {price}$</span>
 
-        <CourseActionsButton client:only="react" userId={1} courseId={id} />
+        <CourseActionsButton client:only="react" courseId={id} />
       </section>
       <section class="mt-8 flex flex-col gap-4">
         <h3 class="text-lg font-bold md:text-xl">Docente</h3>

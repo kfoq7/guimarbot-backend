@@ -1,17 +1,20 @@
 import { addCourseToCart } from '@/stores/cartStore'
 import { queryClient } from '@/stores/react-query'
+import { parseJwt } from '@/utils'
 import { useQuery } from '@tanstack/react-query'
 
 interface Props {
-  userId: number
   courseId: number
 }
 
-export default function CourseActionsButton({ userId, courseId }: Props) {
+export default function CourseActionsButton({ courseId }: Props) {
   const { data, isError } = useQuery(
     {
-      queryKey: ['is-user-enrollment', userId, courseId],
+      queryKey: ['is-user-enrollment', courseId],
       queryFn: async () => {
+        const token = localStorage.getItem('token')
+        const { userId } = parseJwt(token ?? '')
+
         const response = await fetch(
           `${import.meta.env.PUBLIC_API_URL}/user/${userId}/courses/${courseId}/enrollment`
         )

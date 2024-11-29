@@ -30,6 +30,11 @@ export default function UserProfile() {
               {
                 href: '/profile/my-courses',
                 name: 'Mis cursos'
+              },
+              {
+                // href: '/api/'.
+                href: '',
+                name: 'Cerrar sesión'
               }
             ]}
             label="Ver perfil"
