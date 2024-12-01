@@ -20,6 +20,7 @@ export interface Course {
   title: string
   description: string
   price: number
+  level: string
   teacherName: string
   videoPreviewUrl: string
   durationHours: number

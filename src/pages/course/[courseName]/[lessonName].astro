@@ -1,0 +1,12 @@
+---
+import Layout from '@/layouts/CourseLayout.astro'
+
+const { courseName, lessonName } = Astro.params
+---
+
+<Layout title={`course - ${courseName}`}>
+  <main class="flex items-center justify-center p-28">
+    {courseName}
+    {lessonName}
+  </main>
+</Layout>
