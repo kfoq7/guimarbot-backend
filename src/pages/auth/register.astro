@@ -89,10 +89,11 @@
 
 <script>
   import * as THREE from 'three'
+  import HALO from 'vanta/dist/vanta.fog.min'
 
   document.addEventListener('DOMContentLoaded', async () => {
     try {
-      const { default: HALO } = await import('vanta/dist/vanta.fog.min')
+      // const { default: HALO } = await import('vanta/dist/vanta.fog.min')
 
       HALO({
         el: '#three-container',

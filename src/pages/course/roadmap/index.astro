@@ -1,9 +1,9 @@
 ---
-import { transformTitleParam } from '@/utils'
-import type { Course } from '@/types/Course'
+// import { transformTitleParam } from '@/utils'
+// import type { Course } from '@/types/Course'
 import Layout from '@/layouts/Layout.astro'
-import Road from '@/components/roadmap.astro'
-import { RoadMapCard } from '@/components/roadmapCard'
+// import Road from '@/components/roadmap.astro'
+import RoadMapCard from '@/components/RoadmapCard.astro'
 
 const presetPaths = [
   {
@@ -51,11 +51,7 @@ const presetPaths = [
     <section class="mb-12">
       <h2 class="mb-4 text-2xl font-semibold">Rutas Preestablecidas</h2>
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {
-          presetPaths.map((path, index) => (
-            <RoadMapCard key={index} {...path} />
-          ))
-        }
+        {presetPaths.map(path => <RoadMapCard {...path} />)}
       </div>
     </section>
 

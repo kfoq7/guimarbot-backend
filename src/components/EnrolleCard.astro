@@ -1,52 +1,53 @@
 ---
-import type { EnrolleCardProps } from '@/types/Plan'
+import type { Plan } from '@/types/Plan'
 
-export interface Props {
-  plan: EnrolleCardProps
+interface Props {
+  plan: Plan
 }
 
 const { plan } = Astro.props
-
-const { title, capacity, price, emphasized } = plan
+const { name, price, maxUsers, description } = plan
 ---
 
 <div
-  class="flex h-[475px] w-full flex-col overflow-visible rounded-md border border-gray-800/80 bg-gray-100/80 px-5 py-3 drop-shadow-md md:w-96"
+  class="flex w-96 flex-col justify-between rounded-md border border-gray-300"
 >
-  <!-- <div class="flex h-full flex-col"> -->
-  <div class="flex justify-start">
-    <div class="flex w-full items-center justify-between">
-      <h1 class="text-midnight-navy text-left text-xl font-bold md:text-2xl">
-        {title}
-      </h1>
-
-      <div class="text-gray-800/80">
-        S/. {price}
-        <span
-          class="rounded-full border border-black px-2.5 py-0.5 font-bold text-gray-800/80 backdrop-blur-sm"
-        >
-          Mensual
-        </span>
-      </div>
+  <div
+    class="min-w-[300px] overflow-hidden rounded-lg border border-gray-300 bg-white shadow-md"
+  >
+    <div class="border-b border-gray-300 bg-gray-100 p-5 text-left">
+      <h2 class="mb-2 text-lg font-bold text-gray-800">{name}</h2>
+      <p class="mb-2 text-sm text-gray-600">
+        {description}
+      </p>
+      <p class="flex items-center text-sm text-gray-600">
+        <span class="mr-2 inline-block h-4 w-4 rounded-full bg-gray-600"></span>
+        {maxUsers}
+      </p>
+    </div>
+    <div class="p-5 text-left">
+      <p class="mb-5 text-base text-gray-800">
+        Los pagos se pueden realizar a través de todos los medios
+      </p>
+      <button
+        class="mb-5 w-full rounded-lg bg-gray-800 px-4 py-2 text-base font-bold text-white transition hover:bg-gray-600"
+      >
+        S/{price}
+      </button>
+      <ul class="list-none space-y-2">
+        <li class="flex items-center text-sm text-gray-600">
+          <span class="mr-2 font-bold text-green-500">✔</span>
+          Pago único
+        </li>
+        <li class="flex items-center text-sm text-gray-600">
+          <span class="mr-2 font-bold text-green-500">✔</span>
+          1 año de duración
+        </li>
+        <li class="flex items-center text-sm text-gray-600">
+          <span class="mr-2 font-bold text-green-500">✔</span>
+          Acceso a todos los cursos
+        </li>
+      </ul>
     </div>
   </div>
-
-  <p class="mt-4 text-black">
-    Para <span class="font-bold">1 estudiante</span>
-  </p>
-
-  <ul
-    class="my-4 flex flex-col justify-normal gap-y-3 text-gray-800/30 md:flex-grow"
-  >
-  </ul>
-
-  <div class="mt-4 flex w-full justify-end">
-    <a
-      href="/auth/login"
-      class="block w-full rounded-md border border-blue-600 bg-blue-800 px-3 py-2 text-center text-white transition-all duration-300 hover:scale-105"
-    >
-      Adquirir
-    </a>
-  </div>
-  <!-- </div> -->
 </div>

@@ -1,18 +1,17 @@
 // @ts-check
 import { defineConfig } from 'astro/config'
-
 import tailwind from '@astrojs/tailwind'
-
 import react from '@astrojs/react'
-
 import vercel from '@astrojs/vercel/serverless'
+import icon from 'astro-icon'
 
-import icon from 'astro-icon';
-
-// https://astro.build/config
 export default defineConfig({
   output: 'server',
+  devToolbar: {
+    enabled: false
+  },
   integrations: [tailwind(), react(), icon({ include: { mdi: ['*'] } })],
+  adapter: vercel(),
   vite: {
     ssr: {
       noExternal: ['path-to-regexp']
@@ -21,8 +20,15 @@ export default defineConfig({
       watch: {
         usePolling: true
       }
+    },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'three-vendors': ['three']
+          }
+        }
+      }
     }
-  },
-
-  adapter: vercel()
+  }
 })

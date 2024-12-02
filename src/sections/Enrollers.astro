@@ -1,5 +1,5 @@
 ---
-import { EnrolleCard } from '@/components/Enrolle'
+import EnrolleCard from '@/components/EnrolleCard.astro'
 import Section from '@/components/ui/Section.astro'
 import type { Plan } from '@/types/Plan'
 
@@ -8,44 +8,21 @@ const rawData = await response.json()
 
 const data: Plan[] = rawData.map((item: any) => ({
   ...item,
-  price: parseFloat(item.price),
-  emphasis: getEmphasis(item)
+  price: parseFloat(item.price)
 }))
-
-function getEmphasis(plan: any): 'low' | 'medium' | 'high' {
-  return plan.price < 50
-    ? 'low'
-    : plan.price < 100
-      ? 'medium'
-      : plan.price >= 150
-        ? 'high'
-        : 'low'
-}
 ---
 
 <Section>
-  <h1 class="text-center text-2xl font-bold md:text-3xl">
-    Elige el plan que mejor se adapte a ti
-  </h1>
+  <h1 class="text-center text-2xl font-bold md:text-3xl">Nuestro planes</h1>
 
   <p class="mt-2 text-pretty text-center text-lg">
-    Mejora tu oportunidad de crecimiento personal y profesional.
+    Estos son nuestro planes que te ofrecenmos para adquirir nuestros cuerso!
   </p>
 
   <div
     id="plans"
     class="mt-14 flex flex-col items-center justify-center gap-x-5 gap-y-4 md:flex-row"
   >
-    {
-      data.map(plan => (
-        <EnrolleCard
-          name={plan.name}
-          price={plan.price}
-          maxUsers={plan.maxUsers}
-          description={plan.description}
-          emphasis={plan.emphasis}
-        />
-      ))
-    }
+    {data.map(plan => <EnrolleCard plan={plan} />)}
   </div>
 </Section>

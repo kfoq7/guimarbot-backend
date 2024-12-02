@@ -71,7 +71,7 @@ const roadmap = {
       <div class="mt-8 space-y-4">
         <h2 class="mb-4 text-2xl font-semibold">Temas del Roadmap</h2>
         {
-          roadmap.topics.map((topic, index) => (
+          roadmap.topics.map(topic => (
             <div class="flex cursor-grab items-center space-x-4 rounded-lg bg-gray-100 p-4 hover:bg-gray-200">
               {topic.completed ? (
                 <Icon
