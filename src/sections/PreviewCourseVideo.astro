@@ -3,38 +3,28 @@ import LiteYoutube from '@/components/LiteYoutube.astro'
 import Play from '@/icons/Play.astro'
 ---
 
-<div
-  class="relative col-[1/2] row-[2/3] before:pointer-events-none before:absolute before:left-1/2 before:top-0 before:-z-10 before:h-[120%] before:w-1/2 before:-translate-x-1/2 before:bg-white/20 before:blur-3xl after:pointer-events-none after:absolute after:left-0 after:top-0 after:h-full after:w-full after:bg-gradient-to-tr after:from-black after:from-10% after:to-transparent after:to-50% sm:border sm:border-[#111C2D] md:rounded-[16px] before:md:rounded-full md:before:bg-white/10 after:md:rounded-[16px]"
->
-  <!-- <img
-  class="aspect-video w-full rounded-[16px]"
-  src="/img/courses/ultimas-novedades-javascript.webp"
-  alt={`video presentaion course ${courseName}`}
-  style={`view-transition-name: course-${courseName}`}
-/> -->
-  <LiteYoutube videoId="j4b73_D4-5Q" className="rounded-[16px]" />
+<LiteYoutube videoId="j4b73_D4-5Q" className="rounded-[16px]" />
 
-  <div
-    class="absolute bottom-1/2 right-1/2 flex flex-col gap-4 md:bottom-5 md:right-5"
+<div
+  class="absolute bottom-1/2 right-1/2 flex flex-col gap-4 md:bottom-5 md:right-5"
+>
+  <button
+    class="border-brand-gray point lty-play-button flex translate-x-1/2 translate-y-1/2 items-center gap-1.5 rounded-[10px] border bg-box px-4 py-2 text-white transition-transform hover:scale-110 md:translate-x-0 md:translate-y-0"
   >
-    <button
-      class="border-brand-gray point lty-play-button flex translate-x-1/2 translate-y-1/2 items-center gap-1.5 rounded-[10px] border bg-box px-4 py-2 text-white transition-transform hover:scale-110 md:translate-x-0 md:translate-y-0"
-    >
-      <Play />
-      Preview view
-    </button>
-    <a
-      class="border-brand-gray flex translate-x-1/2 translate-y-1/2 items-center gap-1.5 rounded-[10px] border bg-box px-4 py-2 text-white transition-transform hover:scale-110 md:translate-x-0 md:translate-y-0"
-    >
-      <Play />
-      Empezar ahora
-    </a>
-  </div>
-  <div class="absolute bottom-5 left-5 z-10">
-    <p class="mt-1 text-sm text-white/60 sm:text-base">
-      Un curso de <span class="text-white">Miguel Ángel Durán García</span>
-    </p>
-  </div>
+    <Play />
+    Preview view
+  </button>
+  <a
+    class="border-brand-gray flex translate-x-1/2 translate-y-1/2 items-center gap-1.5 rounded-[10px] border bg-box px-4 py-2 text-white transition-transform hover:scale-110 md:translate-x-0 md:translate-y-0"
+  >
+    <Play />
+    Empezar ahora
+  </a>
+</div>
+<div class="absolute bottom-5 left-5 z-10">
+  <p class="mt-1 text-sm text-white/60 sm:text-base">
+    Un curso de <span class="text-white">Miguel Ángel Durán García</span>
+  </p>
 </div>
 
 <script>

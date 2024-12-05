@@ -5,8 +5,13 @@ const { courseName, lessonName } = Astro.params
 ---
 
 <Layout title={`course - ${courseName}`}>
-  <main class="flex items-center justify-center p-28">
-    {courseName}
-    {lessonName}
+  <main class="grid grid-cols-[1fr_330px] gap-6 px-2 py-5">
+    <div class="col-[1/2] row-[2/3]">
+      {courseName}
+    </div>
+
+    <div class="col-[2/3] row-[2/6] px-4">
+      {lessonName}
+    </div>
   </main>
 </Layout>

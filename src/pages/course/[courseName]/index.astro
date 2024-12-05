@@ -22,7 +22,11 @@ const { id, title, description, teacherName, price, durationHours, lessons } =
     </div>
 
     <!-- <div class="relative col-[1/2] row-[2/3] px-4"> -->
-    <PreviewCourseVideo />
+    <div
+      class="relative col-[1/2] row-[2/3] before:pointer-events-none before:absolute before:left-1/2 before:top-0 before:-z-10 before:h-[120%] before:w-1/2 before:-translate-x-1/2 before:bg-white/20 before:blur-3xl after:pointer-events-none after:absolute after:left-0 after:top-0 after:h-full after:w-full after:bg-gradient-to-tr after:from-black after:from-10% after:to-transparent after:to-50% sm:border sm:border-[#111C2D] md:rounded-[16px] before:md:rounded-full md:before:bg-white/10 after:md:rounded-[16px]"
+    >
+      <PreviewCourseVideo />
+    </div>
 
     <div class="col-[1/2] row-[3/4] px-4">
       <h1 class="text-2xl font-bold sm:text-3xl md:text-4xl">{title}</h1>
